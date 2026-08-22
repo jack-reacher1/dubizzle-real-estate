@@ -1,0 +1,328 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b1018">
+  <title>عقارات الملاك</title>
+  <link rel="stylesheet" href="/static/css/app.css">
+</head>
+<body>
+  <div id="app" class="app-shell">
+    <header class="app-header">
+      <div class="brand-block">
+        <div class="brand-mark" aria-hidden="true">م</div>
+        <div>
+          <!-- <p class="eyebrow">اكتشاف عقارات</p> -->
+          <h1>عقارات الملاك</h1>
+          <p class="subtitle">فرص عقارية من ملاك محتملين، بدون ضوضاء الشركات والسماسرة</p>
+        </div>
+      </div>
+
+      <div class="header-status">
+        <span class="status-dot" aria-hidden="true"></span>
+        <span id="result-count" aria-live="polite">جاري التحميل...</span>
+        <span id="scrape-status" class="scrape-status" aria-live="polite">
+          آخر scrape: غير متاح
+        </span>
+      </div>
+    </header>
+
+    <main class="page">
+      <section class="hero-search" aria-label="البحث">
+        <div class="search-copy">
+          <span class="section-kicker">ابحث بطريقتك</span>
+          <h2>اكتب احتياجك، وإحنا نوفره لك
+          </h2>
+          <!-- <p>مثال: شقة 3 غرف في Mountain View أقل من 10 مليون</p> -->
+        </div>
+
+        <div class="search-box">
+          <div class="search-input-wrap">
+            <span class="search-icon" aria-hidden="true">⌕</span>
+
+            <input
+              id="smart-search"
+              class="smart-search"
+              type="search"
+              autocomplete="off"
+              placeholder="شقة 3 غرف في Mountain View أقل من 10 مليون"
+              aria-label="البحث الذكي"
+            >
+
+            <button
+              id="clear-search"
+              class="icon-button hidden"
+              type="button"
+              aria-label="مسح البحث"
+            >
+              ×
+            </button>
+          </div>
+
+          <button id="search-btn" class="btn btn-primary" type="button">
+            بحث
+          </button>
+        </div>
+
+        <div class="quick-actions">
+          <button id="open-filters" class="btn btn-ghost" type="button">
+            الفلاتر
+          </button>
+
+          <label class="sort-control">
+            <span>ترتيب</span>
+
+            <select id="sort" class="select" aria-label="ترتيب النتائج">
+              <option value="newest">الأحدث أولًا</option>
+              <option value="oldest">الأقدم أولًا</option>
+              <option value="price_asc">السعر: الأقل أولًا</option>
+              <option value="price_desc">السعر: الأعلى أولًا</option>
+              <option value="area_asc">المساحة: الأصغر أولًا</option>
+              <option value="area_desc">المساحة: الأكبر أولًا</option>
+            </select>
+          </label>
+        </div>
+      </section>
+
+      <div id="active-filters" class="active-filters" aria-live="polite"></div>
+
+      <div class="content-grid">
+        <aside id="filters-panel" class="filters-panel" aria-hidden="false">
+          <div class="filters-backdrop" id="filters-backdrop"></div>
+
+          <section class="filters-card" aria-label="فلاتر البحث">
+            <div class="filters-header">
+              <div>
+                <span class="section-kicker">تضييق النتائج</span>
+                <h3>الفلاتر</h3>
+              </div>
+
+              <button
+                id="close-filters"
+                class="icon-button close-filter"
+                type="button"
+                aria-label="إغلاق الفلاتر"
+              >
+                ×
+              </button>
+            </div>
+
+            <div class="filters-body">
+              <div class="filter-group">
+                <span class="filter-label">نوع الإعلان</span>
+
+                <div class="segmented">
+                  <label>
+                    <input type="radio" name="listing_type_ui" value="" checked>
+                    <span>الكل</span>
+                  </label>
+
+                  <label>
+                    <input type="radio" name="listing_type_ui" value="sale">
+                    <span>بيع</span>
+                  </label>
+
+                  <label>
+                    <input type="radio" name="listing_type_ui" value="rent">
+                    <span>إيجار</span>
+                  </label>
+                </div>
+              </div>
+
+              <div class="filter-group">
+                <label class="filter-label" for="property_type">
+                  نوع العقار
+                </label>
+
+                <select id="property_type" class="field">
+                  <option value="">كل الأنواع</option>
+                  <option value="Apartment">شقة</option>
+                  <option value="Duplex">دوبلكس</option>
+                  <option value="Villa">فيلا</option>
+                  <option value="Roof">روف</option>
+                </select>
+              </div>
+
+              <div class="filter-group">
+                <span class="filter-label">السعر</span>
+
+                <div class="two-fields">
+                  <input
+                    id="min_price"
+                    class="field"
+                    type="number"
+                    inputmode="numeric"
+                    min="0"
+                    placeholder="من"
+                  >
+
+                  <input
+                    id="max_price"
+                    class="field"
+                    type="number"
+                    inputmode="numeric"
+                    min="0"
+                    placeholder="إلى"
+                  >
+                </div>
+              </div>
+
+              <div class="filter-group">
+                <span class="filter-label">المساحة (م²)</span>
+
+                <div class="two-fields">
+                  <input
+                    id="min_area"
+                    class="field"
+                    type="number"
+                    inputmode="numeric"
+                    min="0"
+                    placeholder="من"
+                  >
+
+                  <input
+                    id="max_area"
+                    class="field"
+                    type="number"
+                    inputmode="numeric"
+                    min="0"
+                    placeholder="إلى"
+                  >
+                </div>
+              </div>
+
+              <div class="filter-group">
+                <label class="filter-label" for="bedrooms_min">
+                  غرف النوم
+                </label>
+
+                <select id="bedrooms_min" class="field">
+                  <option value="">أي عدد</option>
+                  <option value="1">1+</option>
+                  <option value="2">2+</option>
+                  <option value="3">3+</option>
+                  <option value="4">4+</option>
+                  <option value="5">5+</option>
+                </select>
+              </div>
+
+              <div class="filter-group">
+                <label class="filter-label" for="bathrooms_min">
+                  الحمامات
+                </label>
+
+                <select id="bathrooms_min" class="field">
+                  <option value="">أي عدد</option>
+                  <option value="1">1+</option>
+                  <option value="2">2+</option>
+                  <option value="3">3+</option>
+                  <option value="4">4+</option>
+                </select>
+              </div>
+
+              <div class="filter-group">
+                <label class="filter-label" for="completion_status">
+                  حالة الوحدة
+                </label>
+
+                <select id="completion_status" class="field">
+                  <option value="">كل الحالات</option>
+                  <option value="Ready">جاهز</option>
+                  <option value="Under Construction">تحت الإنشاء</option>
+                  <option value="Delivery Soon">استلام قريب</option>
+                </select>
+              </div>
+
+              <div class="filter-group">
+                <label class="filter-label" for="compound">
+                  الكمبوند
+                </label>
+
+                <div class="compound-field">
+                  <input
+                    id="compound"
+                    class="field"
+                    list="compound-list"
+                    autocomplete="off"
+                    placeholder="اكتب اسم الكمبوند"
+                  >
+
+                  <datalist id="compound-list"></datalist>
+                </div>
+              </div>
+
+              <div class="filter-group">
+                <label class="filter-label" for="freshness">
+                  حداثة الإعلان
+                </label>
+
+                <select id="freshness" class="field">
+                  <option value="">كل الإعلانات</option>
+                  <option value="1">آخر 24 ساعة</option>
+                  <option value="3">آخر 3 أيام</option>
+                  <option value="7">آخر أسبوع</option>
+                  <option value="14">آخر أسبوعين</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="filters-actions">
+              <button id="reset-filters" class="btn btn-ghost" type="button">
+                مسح الكل
+              </button>
+
+              <button id="apply-filters" class="btn btn-primary" type="button">
+                عرض النتائج
+              </button>
+            </div>
+          </section>
+        </aside>
+
+        <section class="results-section" aria-label="النتائج">
+          <div class="results-toolbar">
+            <div>
+              <span class="section-kicker">الفرص المتاحة</span>
+              <h2>إعلانات تستحق المراجعة</h2>
+            </div>
+
+            <span id="results-summary" class="results-summary">
+              جاري تحميل النتائج...
+            </span>
+          </div>
+
+          <div id="listings" class="listings" aria-live="polite">
+            <div class="loading-state">
+              <div class="spinner" aria-hidden="true"></div>
+              <p>جاري تحميل الإعلانات...</p>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <dialog id="listing-dialog" class="listing-dialog">
+      <div class="dialog-panel">
+        <button
+          id="close-dialog"
+          class="icon-button dialog-close"
+          type="button"
+          aria-label="إغلاق"
+        >
+          ×
+        </button>
+
+        <div id="dialog-content"></div>
+      </div>
+    </dialog>
+
+    <footer class="app-footer">
+      <span>مخصص للمطور العقاري</span>
+      <span>•</span>
+      <span>مالك مرجح = استنتاج، وليس إثبات ملكية</span>
+    </footer>
+  </div>
+
+  <script src="/static/js/app.js"></script>
+</body>
+</html>

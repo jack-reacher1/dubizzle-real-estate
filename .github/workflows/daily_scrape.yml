@@ -1,0 +1,42 @@
+name: Daily Dubizzle Scrape
+
+on:
+  schedule:
+    # 12:00 Cairo time.
+    # Egypt currently observes DST (UTC+3) from late April to late October,
+    # and standard time (UTC+2) the rest of the year, per Egypt's 2023
+    # DST reinstatement. This cron assumes UTC+3 (summer). Around
+    # late October and late April, update this to 10:00 UTC / 09:00 UTC
+    # respectively, or replace this with a workflow that computes the
+    # offset at runtime if you don't want to touch it twice a year.
+    - cron: "0 9 * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run scraper
+        run: python scraper.py
+
+      - name: Commit updated data
+        run: |
+          git config user.name "dubizzle-scraper-bot"
+          git config user.email "actions@github.com"
+          git add data/listings.csv data/sellers_cache.csv data/business_listings.csv
+          git diff --staged --quiet || git commit -m "Daily scrape: $(date -u +'%Y-%m-%d')"
+          git push

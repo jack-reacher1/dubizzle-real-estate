@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>دوبريزل - قائمة العقارات</title>
+  <link rel="stylesheet" href="/static/css/app.css">
+</head>
+<body>
+  <header class="topbar">
+    <h1>قوائم الدوبزل</h1>
+    <div id="result-count">-- إعلان</div>
+  </header>
+
+  <main>
+    <section class="search-bar">
+      <input id="smart-search" placeholder="بحث ذكي: مثال 'شقة 3 غرف في Mountain View أقل من 10 مليون'">
+      <button id="search-btn">بحث</button>
+    </section>
+
+    <section class="filters">
+      <label>نوع الإعلان
+        <select id="listing_type">
+          <option value="">الكل</option>
+          <option value="sale">للبيع</option>
+          <option value="rent">للإيجار</option>
+        </select>
+      </label>
+      <label>النوع
+        <input id="property_type" placeholder="مثل: Apartment">
+      </label>
+      <label>المجمع
+        <input id="compound" list="compound-list" placeholder="اكتب لاختيار مجمع">
+        <datalist id="compound-list"></datalist>
+      </label>
+      <label>السعر الأدنى
+        <input id="min_price" type="number">
+      </label>
+      <label>السعر الأقصى
+        <input id="max_price" type="number">
+      </label>
+      <label>الغرف (أدنى)
+        <input id="bedrooms_min" type="number">
+      </label>
+      <button id="apply-filters">تطبيق</button>
+    </section>
+
+    <section id="listings" class="listings"></section>
+  </main>
+
+  <script src="/static/js/app.js"></script>
+</body>
+</html>
