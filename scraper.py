@@ -89,6 +89,10 @@ MAX_DELAY = 8
 # Seller profile pages can be large.
 REQUEST_TIMEOUT = 90
 MAX_RETRIES = 2
+# Backoff policy for HTTP 429 responses (exponential backoff with jitter)
+BACKOFF_MAX_RETRIES = 5
+BACKOFF_BASE_SECONDS = 5
+BACKOFF_MAX_SECONDS = 300
 
 # Current business-facing freshness requirement.
 FRESHNESS_DAYS = 14
@@ -258,13 +262,29 @@ def polite_get(url: str) -> Optional[requests.Response]:
                 timeout=REQUEST_TIMEOUT,
             )
 
+            # Handle rate limiting with exponential backoff + jitter.
             if resp.status_code == 429:
-                log.error(
-                    "Rate limited (429) on %s",
+                retry_after = resp.headers.get("Retry-After")
+
+                if retry_after and retry_after.isdigit():
+                    sleep_seconds = int(retry_after)
+                else:
+                    backoff_attempt = min(attempt, BACKOFF_MAX_RETRIES)
+                    base = BACKOFF_BASE_SECONDS * (2 ** (backoff_attempt - 1))
+                    jitter = random.uniform(0, 1.0)
+                    sleep_seconds = int(min(base + jitter, BACKOFF_MAX_SECONDS))
+
+                log.warning(
+                    "Rate limited (429) on %s — sleeping %d seconds (attempt %d/%d)",
                     url,
+                    sleep_seconds,
+                    attempt,
+                    BACKOFF_MAX_RETRIES,
                 )
-                # Propagate a requests-compatible HTTPError so callers can handle it
-                resp.raise_for_status()
+
+                time.sleep(sleep_seconds)
+                # After sleeping, retry the request (do not abort immediately).
+                continue
 
             if resp.status_code == 403:
                 log.error(
