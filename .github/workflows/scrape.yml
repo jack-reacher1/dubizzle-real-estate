@@ -25,6 +25,12 @@ jobs:
         run: python scraper.py
 
       - name: Upload scrape status to Postgres (Supabase)
+        if: ${{ always() }}
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
-        run: python scripts/update_scrape_status.py
+        run: |
+          if [ -z "${DATABASE_URL}" ]; then
+            echo "DATABASE_URL not set in secrets; skipping upload"
+            exit 0
+          fi
+          python scripts/update_scrape_status.py

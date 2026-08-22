@@ -260,17 +260,18 @@ def polite_get(url: str) -> Optional[requests.Response]:
 
             if resp.status_code == 429:
                 log.error(
-                    "Rate limited (429) on %s - stopping this run",
+                    "Rate limited (429) on %s",
                     url,
                 )
-                raise SystemExit(1)
+                # Propagate a requests-compatible HTTPError so callers can handle it
+                resp.raise_for_status()
 
             if resp.status_code == 403:
                 log.error(
-                    "Blocked (403) on %s - stopping this run",
+                    "Blocked (403) on %s",
                     url,
                 )
-                raise SystemExit(1)
+                resp.raise_for_status()
 
             resp.raise_for_status()
             return resp
@@ -2977,6 +2978,40 @@ def save_scrape_status(
         "Saved scrape status -> %s",
         SCRAPE_STATUS_JSON,
     )
+
+
+def save_failed_scrape_status(reason: str) -> None:
+    """
+    Write a failure scrape_status.json with partial counts derived from
+    existing data files so the uploader can capture the failure.
+    """
+    DATA_DIR.mkdir(exist_ok=True)
+
+    def _count_csv(path: Path) -> int:
+        if not path.exists():
+            return 0
+        try:
+            with open(path, newline="", encoding="utf-8") as fh:
+                return sum(1 for _ in csv.DictReader(fh))
+        except Exception:
+            return 0
+
+    payload = {
+        "status": "failed",
+        "last_attempt_scrape_at": datetime.now(timezone.utc).isoformat(),
+        "reason": str(reason),
+        "scraped_listings": _count_csv(ADS_CSV),
+        "business_listings": _count_csv(BUSINESS_CSV),
+        "sellers_count": _count_csv(SELLERS_CSV),
+    }
+
+    tmp_path = SCRAPE_STATUS_JSON.with_suffix(".json.tmp")
+    tmp_path.write_text(
+        json.dumps(payload, ensure_ascii=False, indent=2),
+        encoding="utf-8",
+    )
+    tmp_path.replace(SCRAPE_STATUS_JSON)
+    log.info("Saved failed scrape status -> %s", SCRAPE_STATUS_JSON)
 # ---------------------------------------------------------------------------
 # Run summary
 # ---------------------------------------------------------------------------
@@ -3215,4 +3250,12 @@ def main():
     )
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except Exception as exc:
+        log.exception("Scraper execution failed: %s", exc)
+        try:
+            save_failed_scrape_status(str(exc))
+        except Exception as inner_exc:
+            log.exception("Failed to persist failed scrape status: %s", inner_exc)
+        raise SystemExit(1)
