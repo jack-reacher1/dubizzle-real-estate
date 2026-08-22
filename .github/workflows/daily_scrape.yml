@@ -40,3 +40,10 @@ jobs:
           git add data/listings.csv data/sellers_cache.csv data/business_listings.csv
           git diff --staged --quiet || git commit -m "Daily scrape: $(date -u +'%Y-%m-%d')"
           git push
+
+      - name: Upload scrape status to Postgres (Supabase)
+        if: ${{ secrets.DATABASE_URL != '' }}
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        run: |
+          python scripts/update_scrape_status.py
