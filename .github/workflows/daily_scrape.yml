@@ -42,8 +42,12 @@ jobs:
           git push
 
       - name: Upload scrape status to Postgres (Supabase)
-        if: ${{ secrets.DATABASE_URL != '' }}
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
         run: |
+          # Guard at runtime: workflow-level expressions cannot reference secrets during validation
+          if [ -z "${DATABASE_URL}" ]; then
+            echo "DATABASE_URL not set in secrets; skipping upload"
+            exit 0
+          fi
           python scripts/update_scrape_status.py
