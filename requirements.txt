@@ -1,0 +1,6 @@
+requests>=2.31
+beautifulsoup4>=4.12
+httpx>=0.26
+fastapi>=0.95
+uvicorn[standard]>=0.22
+asyncpg>=0.27
