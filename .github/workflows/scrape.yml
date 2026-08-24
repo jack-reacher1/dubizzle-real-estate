@@ -1,13 +1,29 @@
-name: Scheduled scraper
+name: Manual Dubizzle Scrape
 
 on:
-  schedule:
-    - cron: '0 1 * * *' # daily at 01:00 UTC
   workflow_dispatch: {}
+
+permissions:
+  contents: write
 
 jobs:
   scrape:
     runs-on: ubuntu-latest
+    env:
+      DATA_DIR: ${{ vars.DATA_DIR || 'data' }}
+      LISTINGS_CSV_NAME: ${{ vars.LISTINGS_CSV_NAME || 'listings.csv' }}
+      SELLERS_CSV_NAME: ${{ vars.SELLERS_CSV_NAME || 'sellers_cache.csv' }}
+      BUSINESS_CSV_NAME: ${{ vars.BUSINESS_CSV_NAME || 'business_listings.csv' }}
+      SCRAPE_STATUS_JSON_NAME: ${{ vars.SCRAPE_STATUS_JSON_NAME || 'scrape_status.json' }}
+      DUBIZZLE_BASE_URL: ${{ vars.DUBIZZLE_BASE_URL || 'https://www.dubizzle.com.eg' }}
+      DUBIZZLE_SALE_URL: ${{ vars.DUBIZZLE_SALE_URL || 'https://www.dubizzle.com.eg/en/properties/apartments-duplex-for-sale/5th-settlement/' }}
+      DUBIZZLE_RENT_URL: ${{ vars.DUBIZZLE_RENT_URL || 'https://www.dubizzle.com.eg/en/properties/apartments-duplex-for-rent/5th-settlement/' }}
+      DUBIZZLE_MAX_PAGES: ${{ vars.DUBIZZLE_MAX_PAGES || '25' }}
+      DUBIZZLE_FRESHNESS_DAYS: ${{ vars.DUBIZZLE_FRESHNESS_DAYS || '14' }}
+      DUBIZZLE_INACTIVE_RETENTION_DAYS: ${{ vars.DUBIZZLE_INACTIVE_RETENTION_DAYS || '30' }}
+      OWNER_RECHECK_DAYS: ${{ vars.OWNER_RECHECK_DAYS || '30' }}
+      BROKER_ACTIVE_ADS_THRESHOLD: ${{ vars.BROKER_ACTIVE_ADS_THRESHOLD || '4' }}
+      DATABASE_URL: ${{ secrets.DATABASE_URL }}
     steps:
       - uses: actions/checkout@v4
 
@@ -24,10 +40,23 @@ jobs:
       - name: Run scraper
         run: python scraper.py
 
+      - name: Verify generated data
+        run: |
+          test -s data/listings.csv
+          test -s data/sellers_cache.csv
+          test -s data/business_listings.csv
+          test -s data/scrape_status.json
+
+      - name: Commit updated data
+        run: |
+          git config user.name "dubizzle-scraper-bot"
+          git config user.email "actions@github.com"
+          git add data/listings.csv data/sellers_cache.csv data/business_listings.csv data/scrape_status.json
+          git diff --staged --quiet || git commit -m "Scrape: $(date -u +'%Y-%m-%d')"
+          git push
+
       - name: Upload scrape status to Postgres (Supabase)
         if: ${{ always() }}
-        env:
-          DATABASE_URL: ${{ secrets.DATABASE_URL }}
         run: |
           if [ -z "${DATABASE_URL}" ]; then
             echo "DATABASE_URL not set in secrets; skipping upload"

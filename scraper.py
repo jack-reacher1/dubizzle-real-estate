@@ -4,7 +4,8 @@ Dubizzle Egypt - 5th Settlement Real Estate Scraper
 
 Scrapes apartment/property listings (sale + rent) in the 5th Settlement
 (New Cairo), applies broker-detection rules, seller verification, persistent
-seller cache, and maintains a cumulative historical listings.csv dataset.
+seller cache, and maintains a current listings.csv snapshot with stale inactive
+ads pruned from the working dataset.
 
 Data architecture:
 
@@ -14,8 +15,8 @@ Data architecture:
     scraper.py
         |
         +--> data/listings.csv
-        |       Historical cumulative dataset
-        |       Upsert by ad_id
+        |       Current active working dataset
+        |       Upsert by ad_id and prune stale inactive rows
         |
         +--> data/sellers_cache.csv
         |       Persistent seller memory
@@ -27,7 +28,7 @@ Data architecture:
                 Current eligible business-facing snapshot
 
 Important:
-- listings.csv is cumulative and never intentionally loses historical rows.
+- listings.csv is kept as the current working dataset and prunes inactive rows.
 - sellers_cache.csv is persistent and preserves old sellers / blacklist entries.
 - business_listings.csv is intentionally rebuilt as the CURRENT eligible snapshot.
 - No fake Dubizzle ad URLs are constructed.
@@ -37,10 +38,11 @@ Important:
 
 import csv
 import json
+import logging
+import os
 import random
 import re
 import time
-import logging
 
 from dataclasses import dataclass, asdict
 from datetime import datetime, timedelta, timezone
@@ -51,51 +53,74 @@ from difflib import SequenceMatcher
 from html import unescape
 
 import requests
+from dotenv import load_dotenv
+
+load_dotenv()
 
 
 # ---------------------------------------------------------------------------
 # Config
 # ---------------------------------------------------------------------------
 
-BASE_URL = "https://www.dubizzle.com.eg"
+
+def _get_int_env(name: str, default: int, *, minimum: int | None = None, maximum: int | None = None) -> int:
+    try:
+        value = int(os.getenv(name, default))
+    except (TypeError, ValueError):
+        value = default
+    if minimum is not None and value < minimum:
+        return minimum
+    if maximum is not None and value > maximum:
+        return maximum
+    return value
+
+
+BASE_URL = os.getenv("DUBIZZLE_BASE_URL", "https://www.dubizzle.com.eg")
 
 SEARCH_URLS = {
     "sale": (
-        "https://www.dubizzle.com.eg/en/properties/"
-        "apartments-duplex-for-sale/5th-settlement/"
+        os.getenv(
+            "DUBIZZLE_SALE_URL",
+            "https://www.dubizzle.com.eg/en/properties/"
+            "apartments-duplex-for-sale/5th-settlement/",
+        )
     ),
     "rent": (
-        "https://www.dubizzle.com.eg/en/properties/"
-        "apartments-duplex-for-rent/5th-settlement/"
+        os.getenv(
+            "DUBIZZLE_RENT_URL",
+            "https://www.dubizzle.com.eg/en/properties/"
+            "apartments-duplex-for-rent/5th-settlement/",
+        )
     ),
 }
 
 # Scrape enough pages to capture recent opportunities.
-MAX_PAGES = 25
+MAX_PAGES = _get_int_env("DUBIZZLE_MAX_PAGES", 25, minimum=1)
 
-DATA_DIR = Path("data")
+DATA_DIR = Path(os.getenv("DATA_DIR", "data"))
 
-ADS_CSV = DATA_DIR / "listings.csv"
-SELLERS_CSV = DATA_DIR / "sellers_cache.csv"
-BUSINESS_CSV = DATA_DIR / "business_listings.csv"
-SCRAPE_STATUS_JSON = DATA_DIR / "scrape_status.json"
+ADS_CSV = DATA_DIR / os.getenv("LISTINGS_CSV_NAME", "listings.csv")
+SELLERS_CSV = DATA_DIR / os.getenv("SELLERS_CSV_NAME", "sellers_cache.csv")
+BUSINESS_CSV = DATA_DIR / os.getenv("BUSINESS_CSV_NAME", "business_listings.csv")
+SCRAPE_STATUS_JSON = DATA_DIR / os.getenv("SCRAPE_STATUS_JSON_NAME", "scrape_status.json")
 
-OWNER_RECHECK_DAYS = 30
-BROKER_ACTIVE_ADS_THRESHOLD = 4
+OWNER_RECHECK_DAYS = _get_int_env("OWNER_RECHECK_DAYS", 30, minimum=1)
+BROKER_ACTIVE_ADS_THRESHOLD = _get_int_env("BROKER_ACTIVE_ADS_THRESHOLD", 4, minimum=1)
 
-MIN_DELAY = 3
-MAX_DELAY = 8
+MIN_DELAY = _get_int_env("DUBIZZLE_MIN_DELAY_SECONDS", 3, minimum=0)
+MAX_DELAY = _get_int_env("DUBIZZLE_MAX_DELAY_SECONDS", 8, minimum=0)
 
 # Seller profile pages can be large.
-REQUEST_TIMEOUT = 90
-MAX_RETRIES = 2
+REQUEST_TIMEOUT = _get_int_env("DUBIZZLE_REQUEST_TIMEOUT_SECONDS", 90, minimum=5)
+MAX_RETRIES = _get_int_env("DUBIZZLE_MAX_RETRIES", 2, minimum=0)
 # Backoff policy for HTTP 429 responses (exponential backoff with jitter)
-BACKOFF_MAX_RETRIES = 5
-BACKOFF_BASE_SECONDS = 5
-BACKOFF_MAX_SECONDS = 300
+BACKOFF_MAX_RETRIES = _get_int_env("DUBIZZLE_BACKOFF_MAX_RETRIES", 5, minimum=1)
+BACKOFF_BASE_SECONDS = _get_int_env("DUBIZZLE_BACKOFF_BASE_SECONDS", 5, minimum=1)
+BACKOFF_MAX_SECONDS = _get_int_env("DUBIZZLE_BACKOFF_MAX_SECONDS", 300, minimum=1)
 
 # Current business-facing freshness requirement.
-FRESHNESS_DAYS = 14
+FRESHNESS_DAYS = _get_int_env("DUBIZZLE_FRESHNESS_DAYS", 14, minimum=1)
+INACTIVE_RETENTION_DAYS = _get_int_env("DUBIZZLE_INACTIVE_RETENTION_DAYS", 30, minimum=1)
 
 HEADERS = {
     "User-Agent": (
@@ -2342,21 +2367,54 @@ def load_existing_ads() -> dict[str, dict]:
         }
 
 
+def _parse_csv_date(value: Optional[str]) -> Optional[datetime]:
+    if not value:
+        return None
+    try:
+        return datetime.fromisoformat(value)
+    except ValueError:
+        try:
+            return datetime.strptime(value, "%Y-%m-%d")
+        except ValueError:
+            return None
+
+
+def _prune_inactive_listings(
+    existing: dict[str, dict],
+    retention_days: int = INACTIVE_RETENTION_DAYS,
+) -> dict[str, dict]:
+    """Remove stale inactive rows while keeping a short retention window."""
+    now = datetime.now(timezone.utc)
+    cutoff = now - timedelta(days=retention_days)
+
+    kept: dict[str, dict] = {}
+    for ad_id, row in existing.items():
+        if row.get("is_active") in ("False", "false", False, "0", 0):
+            last_seen = (
+                row.get("last_seen_date")
+                or row.get("updated_at")
+                or row.get("posted_at")
+                or row.get("first_seen_date")
+            )
+            seen_dt = _parse_csv_date(last_seen)
+            if seen_dt is not None and seen_dt.tzinfo is None:
+                seen_dt = seen_dt.replace(tzinfo=timezone.utc)
+            if seen_dt is not None and seen_dt < cutoff:
+                continue
+        kept[ad_id] = row
+    return kept
+
+
 def merge_and_save(
     new_listings: list[Listing],
 ) -> None:
 
     """
-    Historical upsert.
+    Upsert current listings and prune stale inactive rows.
 
-    Existing listings are preserved.
-    New listings are added.
-    Existing listings are updated by ad_id.
-
-    IMPORTANT:
-    Physically the CSV file is rewritten, but the dataset itself
-    is cumulative because we first load all existing rows and merge
-    the new run into them.
+    Existing listings are refreshed by ad_id. Rows not seen in the current run are
+    marked inactive and then removed from the working dataset so listings.csv does
+    not grow indefinitely.
     """
 
     today = datetime.now(
@@ -2425,14 +2483,15 @@ def merge_and_save(
             for key, value in row.items()
         }
 
-    # Important:
-    # We preserve historical rows.
-    # We mark rows not seen in this run inactive.
+    # Mark rows not seen in this run as inactive so they can be filtered out of
+    # the working CSV snapshot in the next write.
     for ad_id, row in existing.items():
 
         if ad_id not in seen_today_ids:
 
             row["is_active"] = "False"
+
+    existing = _prune_inactive_listings(existing)
 
     DATA_DIR.mkdir(
         exist_ok=True
@@ -2465,7 +2524,7 @@ def merge_and_save(
             )
 
     log.info(
-        "Saved historical listings: "
+        "Saved active listings snapshot: "
         "%d total (%d seen/updated this run)",
         len(existing),
         len(seen_today_ids),

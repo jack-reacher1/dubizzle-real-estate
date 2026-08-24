@@ -1,13 +1,19 @@
 import csv
+import os
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import List, Dict, Any
 
+from dotenv import load_dotenv
+
 from services.search import parse_smart_query
 
+load_dotenv()
 
-DATA_DIR = Path("data")
-BUSINESS_CSV = DATA_DIR / "business_listings.csv"
+DATA_DIR = Path(os.getenv("DATA_DIR", "data"))
+BUSINESS_CSV = DATA_DIR / os.getenv("BUSINESS_CSV_NAME", "business_listings.csv")
+API_DEFAULT_PER_PAGE = int(os.getenv("APP_DEFAULT_PER_PAGE", "20"))
+API_MAX_PER_PAGE = int(os.getenv("APP_MAX_PER_PAGE", "200"))
 
 
 class ListingsService:
@@ -396,15 +402,15 @@ class ListingsService:
             page = 1
 
         try:
-            per_page = int(p.get("per_page") or 20)
+            per_page = int(p.get("per_page") or API_DEFAULT_PER_PAGE)
         except (TypeError, ValueError):
-            per_page = 20
+            per_page = API_DEFAULT_PER_PAGE
 
         if page < 1:
             page = 1
 
-        if per_page < 1 or per_page > 200:
-            per_page = 20
+        if per_page < 1 or per_page > API_MAX_PER_PAGE:
+            per_page = API_DEFAULT_PER_PAGE
 
         start = (page - 1) * per_page
         end = start + per_page

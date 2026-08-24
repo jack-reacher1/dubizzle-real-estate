@@ -10,6 +10,8 @@ async def main():
         print("DATABASE_URL not set", file=sys.stderr)
         sys.exit(1)
 
+    statement_cache_size = int(os.getenv("ASYNCPG_STATEMENT_CACHE_SIZE", "0"))
+
     status_file = os.path.join(os.path.dirname(__file__), "..", "data", "scrape_status.json")
     status_file = os.path.normpath(status_file)
 
@@ -20,7 +22,12 @@ async def main():
     with open(status_file, encoding="utf-8") as fh:
         data = json.load(fh)
 
-    pool = await asyncpg.create_pool(dsn=database_url, min_size=1, max_size=3)
+    pool = await asyncpg.create_pool(
+        dsn=database_url,
+        min_size=1,
+        max_size=3,
+        statement_cache_size=statement_cache_size,
+    )
     async with pool.acquire() as conn:
         # Ensure the scrape_meta table exists (idempotent)
         await conn.execute(
