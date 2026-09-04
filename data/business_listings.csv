@@ -47,7 +47,7 @@ ad_id,ad_url,listing_type,title,price,area_sqm,bedrooms,bathrooms,property_type,
 
 [redacted phone number]#[redacted phone number]#([redacted phone number]#((01156141612))) رقمي المالك
 
-التواصل الاول يكون واتساب مش اتصال",2026-08-15T05:50:29.414258+00:00,2026-08-29T14:44:25.526043+00:00,5,احمد,1,True
+التواصل الاول يكون واتساب مش اتصال",2026-08-15T05:50:29.414258+00:00,2026-08-29T14:44:25.526043+00:00,6,احمد,1,True
 29200859,https://www.dubizzle.com.eg/ad/apartment-for-sale-ID208653507.html,sale,Apartment for sale,8000000,300,2,2,Apartment,Ready,Cash,No,5th Settlement,,"Apartment for sale in the Fifth Settlement, located on Gamal Abdel Nasser Axis; features two bedrooms, two bathrooms, and two large terraces.",2026-08-07T18:52:32.650843+00:00,2026-09-03T19:57:33.039987+00:00,0,Rawan Hamdy,1,True
 29282047,https://www.dubizzle.com.eg/ad/شقة-للإستثمار-في-التجمع-خامس-من-المالك-مباشرة-التفاصيل-في-الشرح-تحت-ID208704255.html,sale,شقة للإستثمار في التجمع خامس (من المالك مباشرة التفاصيل في الشرح تحت),5800000,82,1,1,Apartment,Off-plan,Cash,No,5th Settlement,Point 90,"انا مهندس ديكور و حاطت صور تخيلية ليكم شكل الشقة هيبقى عامل ازاي لو اتشطبت بعد الإستلام. انا المالك مباشرة فا مفيش وسيط خالص. 
 
@@ -96,6 +96,25 @@ ad_id,ad_url,listing_type,title,price,area_sqm,bedrooms,bathrooms,property_type,
 
  للتفاصيل والصور وخطة السداد، ابعتلي رسالة على الخاص. 
  البيع مباشر من المالك.",2026-08-19T09:59:24.832576+00:00,2026-08-31T09:56:33.944811+00:00,4,Anonymous,1,True
+29083717,https://www.dubizzle.com.eg/ad/شقة-مساحة-١٤٤-متر-و-حديقة-١٢٠-متر-بيت-الوطن-الحي-الثاني-التجمع-الخامس-ID208577220.html,sale,شقة مساحة ١٤٤ متر و حديقة ١٢٠ متر  بيت الوطن الحي الثاني التجمع الخامس,3870000,144,3,2,Apartment,Ready,Cash or Installment,No,5th Settlement,,"لراغبي الهدوء و السكن الراقي شقة ١٤٤ متر و بحديقة خاصة ١٢٠ متر حرف u معروضة للبيع من المالك مباشرة في بيت الوطن، الحي الثاني، التجمع الخامس ثاني صف من الفيو زون و قريبة من النادي الأهلي. 
+• ٣ غرف نوم
+• ٢ حمام
+• دور أرضي
+• فيها حديقة خاصة ١٢٠ متر حرف U
+• نصف تشطيب، جاهزة تكمّلها على ذوقك
+• الاستلام سنة ٢٠٢٦
+
+من مطور عقاري شركة النيل و الأهرام العقارية
+
+حوائط و اسقف محارة بمادة البلانكو - الواجه فاخرة و المدخل فاخر (رخام و جرانيت) و انتركم مرئى و كاميرات مراقبة و بوابة جراج إلكترونية
+
+
+المكان هادي وفيه خصوصية، مناسب للعائلات اللي بتحب المساحات الخارجية. الموقع في بيت الوطن قريب من الخدمات والطرق الرئيسية، وده بيسهل عليك حياتك اليومية. 
+
+السعر المطلوب 3,750,000 كاش و تقسيط الباقي مع الشركة علي سنة و نصف
+السعر شامل 250,000 جراج و مخزن
+
+يرجي التواصل واتس اب",2026-09-04T14:07:13.029124+00:00,2026-09-04T14:16:23.848447+00:00,0,ahmed fouad,1,True
 29323266,https://www.dubizzle.com.eg/ad/شقة-مفروشة-للإيجار-بالمستثمرين-الجنوبية-ID208731665.html,rent,شقة مفروشة للإيجار بالمستثمرين الجنوبية,30000,175,3,2,Apartment,,,Yes,5th Settlement,,شقة مفروشة للإيجار بالمستثمرين الجنوبية - عائلي٣ - محور محمد نجيب - ٣ غرف - ٢ حمام - مفروشة و مكيفة بالكامل,2026-08-16T17:06:51.383233+00:00,2026-09-01T08:03:08.633008+00:00,3,عمرو,1,True
 29215660,https://www.dubizzle.com.eg/ad/direct-owner-mountain-view-hyde-park-208-sqm-ID208664215.html,sale,Direct Owner | Mountain View Hyde Park | 208 SQM,14500000,208,3,3,Apartment,Ready,Cash,No,5th Settlement,Mountain View Hyde Park,"أنا مالك الوحدة مباشرة وأعرضها للبيع في Mountain View Hyde Park. 
 
@@ -131,6 +150,8 @@ I’m the direct owner of this 208 sqm unit in Mountain View Hyde Park and offer
 A very private and open location with great views from both sides. 
 
 Direct from owner – serious buyers are welcome to contact me for details and viewing.",2026-08-08T22:02:46.612067+00:00,2026-09-01T06:41:45.691860+00:00,3,Omar,1,True
+29445487,https://www.dubizzle.com.eg/ad/شقة-بالاندلس-نمرة-2-من-شارع-التسعين-الجنوبي-امام-كمبوند-ميفيدا-ID208809189.html,sale,شقة بالاندلس نمرة 2 من شارع التسعين الجنوبي امام كمبوند ميفيدا,4000000,140.00,3,2,Apartment,Ready,Cash,Yes,5th Settlement,,"شقة 140 متر متشطبة سوبر لوكس نمرة 2 من شارع التسعين الجنوبي امام كمبوند مفيدا و نمرة 2 من كمبوند قطامية ديونز. 3 غرف نوم و حمام ضيوف و حمام اساسي ريسبشن كبير قطعتين. 
+الشقة اول ساكن كل شيئ جديد بالكارتون.",2026-08-25T14:18:49.202274+00:00,2026-09-02T14:41:20.460404+00:00,2,Ahmed shaalan,2,True
 27164468,https://www.dubizzle.com.eg/ad/شقة-مفروشة-فرش-فندقي-راقي-جدا-أول-سكن-كمبوند-القطامية-جاردنز-ID207296700.html,rent,شقة مفروشة فرش فندقي راقي جدا أول سكن كمبوند القطامية جاردنز,40000,120.00,2,1,Apartment,,,Yes,5th Settlement,,"شقة مفروشة  غرفتين فرش فندفي راقي  جدا اول ساكن بكمبوند القطامية جاردنز التجمع الخامس  امام الماونتن فيو وقريب جدا من الجامعة الامريكية
  داخل الكمبوند مستشفى سيشل وفندق Vibotel Hotel
 ( مساحة 120 متر) 
@@ -153,7 +174,7 @@ All services are located in front of the compound, including a hypermarket, phar
 The compound also includes Seychelles Hospital and Gateway International School. The compound is fully secured and known for its tranquility.",2026-08-25T11:47:28.364997+00:00,2026-09-02T02:10:36.873637+00:00,2,Dr Ahmed Kamal,3,True
 29450400,https://www.dubizzle.com.eg/ad/انا-المالك-شقة-مفروشة-للايجار-في-كومبوند-هايد-بارك-التجمع-الخامس-ID208812290.html,rent,( انا المالك ) شقة مفروشة للايجار في كومبوند هايد بارك التجمع الخامس,90000,169,3,3,Apartment,,,,5th Settlement,,"شقة فخمة جدا للايجار الفرش الفندقي والرفاهيه وفيرست يوز ممتازه وغرف واسعه وفيو اكتر من رائع ٣ غرف ٣ حمام وغرفه ماستر وريسبشن واسع 
 للتواصل واتساب [redacted phone number]#[redacted phone number]#((01129588558)) او الاتصال علي [redacted phone number]#[redacted phone number]#((01098252070))",2026-08-25T20:41:54.021662+00:00,2026-08-26T04:04:17.910060+00:00,9,Sherouk,1,True
-29458237,https://www.dubizzle.com.eg/ad/شقة-١٨٠-متر-إيجار-في-التجمع-الخامس-الحي-التاني-المنطقة-الخامسة-ID208817022.html,rent,شقة ١٨٠ متر إيجار في التجمع الخامس الحي التاني المنطقة الخامسة,22000,180.00,3,2,Apartment,,,No,5th Settlement,,١٨٠ متر ٣ غرف ٣ حمام ٣ قطع ريسبشين ومطبخ و٢ بلكونة الشقة مستوين,2026-08-26T13:25:10.822878+00:00,2026-08-26T13:51:41.189039+00:00,8,Ahmed Shatla,1,True
+29458237,https://www.dubizzle.com.eg/ad/شقة-١٨٠-متر-إيجار-في-التجمع-الخامس-الحي-التاني-المنطقة-الخامسة-ID208817022.html,rent,شقة ١٨٠ متر إيجار في التجمع الخامس الحي التاني المنطقة الخامسة,22000,180.00,3,2,Apartment,,,No,5th Settlement,,١٨٠ متر ٣ غرف ٣ حمام ٣ قطع ريسبشين ومطبخ و٢ بلكونة الشقة مستوين,2026-08-26T13:25:10.822878+00:00,2026-08-26T13:51:41.189039+00:00,9,Ahmed Shatla,1,True
 29477799,https://www.dubizzle.com.eg/ad/شقة-للبيع-في-التجمع-الخامس-دار-مصر-الأندلس-2-مرحلة-ثانية-ID208829675.html,sale,شقة للبيع في التجمع الخامس – دار مصر الأندلس 2 (مرحلة ثانية),3650000,140.00,3,3,Apartment,Ready,,Yes,5th Settlement,,"شقة للبيع في التجمع الخامس – دار مصر الأندلس 2 (مرحلة ثانية)
 من المالك مباشرة
 فيو مفتوح واكتر من ممتاز 3650
@@ -190,9 +211,11 @@ The compound also includes Seychelles Hospital and Gateway International School.
 ٢٣٠م 
 ٣ غرف نوم - ٢ حمام - ريسبشن ٣ قطع
 نصف تشطيب",2026-08-28T12:09:34.735322+00:00,2026-08-28T12:11:16.927752+00:00,7,Ahmed gamal,1,True
+29493918,https://www.dubizzle.com.eg/ad/شقه-للبيع-فى-قلب-شارع-التسعين-الجنوبى-ID208842116.html,sale,شقه للبيع فى قلب شارع التسعين الجنوبى,7000000,193,3,3,Apartment,Ready,Cash,No,5th Settlement,,"شقه تشطيب شوبر لوكس للبيع فرصه بسعر مميز جدا للبيع شقة تشطيب التر لوكس في فيلا - الحي الاول بالتجمع الخامس. مساحة ١٩٤ متر تانى نمره من شارع ٩٠ 3 غرف نوم و2 حمام  وريسبشن 2 قطعة مطبخ مجهز بالكامل  طبيعي تليفون ارضي وانترنت دور أرضي مرتفع مدخل خاص أمامي ومدخل جانبي. تتميز بكثير من المميزات: - موقع الشقة هادي وحيوي وجذاب - ⁠قربية جدا من المحلات التجارية والعالمية - ⁠خطوات من الدون تون وأكبر البنوك وأشهر المطاعم الرائعة - ⁠٥ دقيقة من كايرو فستيفال سيتي. - ⁠الشقة غير مجروحة أمامها جزيرة خضراء كبيرة (2000 م 2) متر. ⁠""
+مطلوب 7000000",2026-08-29T13:29:59.944214+00:00,2026-08-29T17:23:23.092802+00:00,6,Hanaa,4,True
 28410640,https://www.dubizzle.com.eg/ad/شقة-مفروشه-للايجار-شارع-التسعين-التجمع-الخامس-ID208139827.html,rent,شقة مفروشه للايجار شارع التسعين التجمع الخامس,45000,190,3,2,Apartment,,,Yes,5th Settlement,,"شقه تشطيب شوبر لوكس للايجار ىاافرصه بسعر مميز جدا شقة تشطيب التر لوكس في فيلا - الحي الاول بالتجمع الخامس. مساحة ١٩٤ متر تانى نمره من شارع ٩٠ 3 غرف نوم و2 حمام  وريسبشن 2 قطعة مطبخ مجهز بالكامل  طبيعي تليفون ارضي وانترنت دور أرضي مرتفع مدخل خاص أمامي ومدخل جانبي. تتميز بكثير من المميزات: - موقع الشقة هادي وحيوي وجذاب - ⁠قربية جدا من المحلات التجارية والعالمية - ⁠خطوات من الدون تون وأكبر البنوك وأشهر المطاعم الرائعة - ⁠٥ دقيقة من كايرو فستيفال سيتي. - ⁠الشقة غير مجروحة أمامها جزيرة خضراء كبيرة (2000 م 2) متر. ⁠""",2026-08-29T13:06:00.209739+00:00,2026-08-29T13:12:24.911702+00:00,6,Hanaa,4,True
 29494770,https://www.dubizzle.com.eg/ad/شقة-متميزة-النرجس-الجديدة-١٤٥م٢-ارضي-مرتفع-٤٠م٢-حديقة-موقف-سيار-ID208842621.html,sale,شقة  متميزة النرجس الجديدة  ١٤٥م٢ + ارضي  مرتفع  ٤٠م٢ حديقة +موقف سيار,4150000,145.00,3,3,Apartment,Ready,Cash,No,5th Settlement,,"من المالك مباشرة 
-شقة بالنرجس الجديدة موقع متميز جدا في عمارة متميزة دور ( ارضي مرتفع ) نص تشطيب  العمارة منتهية البناء الشقة ١٤٥م ٢ + موقف سيارة + مخزن خاص + حديقة جانبية خاصة ٤٠م٢ + حديقة أمامية  للعمارة أمام الشقة على شارع رئيسي ، العمارة على ٣ محاور رئيسية واجهة فرعوني مدخل رخام ، تعاقد مباشر مع المطور، منتهية السداد ليس عليها التزامات ، غرفة نوم ماستر مع حمام خاص + ٢ نوم + ٢ حمام + ريسيبشن + أمريكان كيتشن + باب مصفح ، العمارة تحت المطابقة مع الجهاز .",2026-08-29T14:32:45.442591+00:00,2026-09-01T13:26:37.259765+00:00,2,د. شريف عاشور,1,True
+شقة بالنرجس الجديدة موقع متميز جدا في عمارة متميزة دور ( ارضي مرتفع ) نص تشطيب  العمارة منتهية البناء الشقة ١٤٥م ٢ + موقف سيارة + مخزن خاص + حديقة جانبية خاصة ٤٠م٢ + حديقة أمامية  للعمارة أمام الشقة على شارع رئيسي ، العمارة على ٣ محاور رئيسية واجهة فرعوني مدخل رخام ، تعاقد مباشر مع المطور، منتهية السداد ليس عليها التزامات ، غرفة نوم ماستر مع حمام خاص + ٢ نوم + ٢ حمام + ريسيبشن + أمريكان كيتشن + باب مصفح ، العمارة تحت المطابقة مع الجهاز .",2026-08-29T14:32:45.442591+00:00,2026-09-01T13:26:37.259765+00:00,3,د. شريف عاشور,1,True
 29504464,https://www.dubizzle.com.eg/ad/fully-furnished-3br-apartment-175mgarden-viewmassraweyanew-cairo-ID208849569.html,rent,Fully Furnished 3BR Apartment /175m/Garden view/Massraweya/New Cairo,35000,175,3,2,Apartment,,,Yes,5th Settlement,,"Fully Furnished 3-Bedroom Apartment for Rent in Massraweya Compound – New Cairo
 
  Prime location: Massraweya Compound, South Teseen Street, New Cairo
@@ -254,7 +277,7 @@ A rare opportunity to rent a spacious, fully equipped home in one of New Cairo�
 ماونتن ڤيو -آي سيتي -التجمع 
 
 سويت فندقي 70 م  (مش ستديو) 
-مساحة مفتوحه كلها open space",2026-08-30T11:43:54.586946+00:00,2026-08-30T11:51:19.637240+00:00,5,Hossam,1,True
+مساحة مفتوحه كلها open space",2026-08-30T11:43:54.586946+00:00,2026-09-04T14:55:56.313265+00:00,0,Hossam,1,True
 21998765,https://www.dubizzle.com.eg/ad/شقه-للبيع-بالنرجس-من-المالك-التجمع-الخامس-ID203222436.html,sale,شقه للبيع بالنرجس من المالك - التجمع الخامس,6750000,180,3,2,Apartment,Ready,Cash,No,5th Settlement,,"شقه بعمارات النرجس - التجمع الخامس 
 بالقرب من جامع فاطمه الشربتلي 
 ١٨٠ متر - ٣ غرف - ٢ حمام - ريسبشن ٣ قطع - مطبخ 
@@ -302,23 +325,50 @@ A rare opportunity to rent a spacious, fully equipped home in one of New Cairo�
 . الراحة والأمان: عمارة حديثة مزودة بخدمات أمن وصيانة على مدار الساعة
 40 meter parking underground
 العفش مش للبيع ، مطبخ كامل",2026-08-30T19:02:12.500358+00:00,2026-08-31T01:40:09.915925+00:00,4,Eyad Ayman,1,True
-27832887,https://www.dubizzle.com.eg/ad/شقه-للبيع-بالتجمع-الخامس-حي-القضاه-حي-٣-٤-بجوار-هاني-سعد-للديكور-ID207756603.html,sale,شقه للبيع بالتجمع الخامس حي القضاه - حي ٣/ ٤ بجوار هاني سعد للديكور,6000000,200,3,2,Apartment,Ready,Cash,Yes,5th Settlement,,"Second floor apartment in a 3-floor building with roof (no elevator). 
-Area: 200 sqm - 160 sqm (net). 
+28124582,https://www.dubizzle.com.eg/ad/شقة-170م-الترا-سوبر-لوكس-3-غرف-و3-حمام-الأندلس-2-التجمع-الخامس-ID207946987.html,sale,شقة 170م الترا سوبر لوكس  3 غرف و3 حمام | الأندلس 2 التجمع الخامس,5200000,170,3,3,Apartment,Ready,Cash,No,5th Settlement,," **فرصة مميزة للبيع من المالك مباشرة في الأندلس 2 – التجمع الخامس**
 
-* 3 bedrooms
-* 2 bathrooms
-* Modern, high-end finishing
-* Fully equipped kitchen
-* One furnished bedroom with air conditioning
-* Fully furnished reception
+امتلك شقة **170 متر** بتشطيب الترا سوبر لوكس على أعلى مستوى، جاهزة للسكن والاستلام الفوري بدون أي مصاريف إضافية. 
 
-Prime location in Tagamoa El Khames – Hay El Qodah, just steps from Arabella Plaza Mall, OLA gas station, and GUC. 
+ **موقع مميز جدًا**
+خطوات من شارع التسعين الجنوبي، وقريبة من أهم الكمبوندات والخدمات مثل:
+• قطامية ديونز
+• ميفيدا
+• مدرسة النيل
 
-The apartment is sold fully furnished. 
+### تفاصيل الشقة:
 
-Directly from the owner (no broker)
+ المساحة: **170 متر**
+ **3 غرف نوم**، منهم غرفة ماستر بحمام خاص
+ **3 حمامات**
+ ريسبشن واسع
+ مطبخ
+ دور قبل الأخير
+ أسانسير
+ عداد كهرباء
+ حصة في الأرض
+ واجهة العمارة من الحجر الطبيعي
 
-Price: 6,000,000",2026-08-17T15:55:51.394422+00:00,2026-08-30T16:37:17.984575+00:00,4,mohamed,1,True
+### تشطيب فاخر بأعلى جودة:
+
+ كهرباء سويدي
+ سباكة ألماني
+ تأسيس مواسير لـ **5 تكييفات**
+ جبس بورد فلات للشقة بالكامل مع إضاءات LED
+ شبابيك PVC تركي
+ باب مصفح تركي
+ أبواب خشب عمولة
+ أرضيات بورسلين الجوهرة
+ خزان مياه خاص
+
+ **جاهزة للسكن فورًا**
+ **استلام فوري**
+ **البيع من المالك مباشرة**
+
+ **السعر المطلوب: 5,200,000 جنيه**
+
+فرصة مثالية لمن يبحث عن شقة واسعة بتشطيب فاخر وموقع مميز في قلب التجمع الخامس. 
+
+ **للتفاصيل أو حجز موعد للمعاينة، تواصل الآن. **",2026-08-31T13:59:24.689844+00:00,2026-08-31T14:15:56.758532+00:00,4,Mahmoud,1,True
 29497946,https://www.dubizzle.com.eg/ad/شقة-155م-للايجار-في-جاردنيا-هايتس-3-تشطيب-فاخر-3-غرف-و-2-حمام-ID208844869.html,rent,شقة 155م للايجار في جاردنيا هايتس 3 - تشطيب فاخر 3 غرف و 2 حمام,18000,155.00,3,2,Apartment,,,No,5th Settlement,,"شقة جاهزة للايجار في جاردنيا هايتس 3 / القاهرة الجديدة
 
 المساحة: 155 متر
@@ -463,7 +513,7 @@ ________________________________________
 على اكبر جردن بالشويفات ڤيو جاردن صريح 
  Fully Furnished جاهزة للسكن فورًا
  للتفاصيل والمعاينة:
-سفير العقارات  [[redacted phone number]#(01205111635)]",2026-09-01T13:23:49.257386+00:00,2026-09-01T13:37:34.670921+00:00,2,سفير العقارات ,1,True
+سفير العقارات  [[redacted phone number]#(01205111635)]",2026-09-01T13:23:49.257386+00:00,2026-09-01T13:37:34.670921+00:00,3,سفير العقارات ,1,True
 29531112,https://www.dubizzle.com.eg/ad/brand-new-flat-in-new-cairo-ID208866139.html,rent,Brand new flat in new cairo,30000,170,3,3,Apartment,,,No,5th Settlement,,"Ideal for new bride and groom. 
 Recently finished flatbwith everything new. Never rented before
 Brand new kitchen with appliances. 
@@ -473,7 +523,7 @@ Induction hob
 The flat has no natural gas and it will not be added to the flat. The induction hob provided is better and safer than gas.",2026-09-01T11:20:16.964461+00:00,2026-09-01T11:22:44.808081+00:00,3,د أحمد السبكي,1,True
 29518046,https://www.dubizzle.com.eg/ad/شقة-بكمبوند-ذا-فيلدج-بالم-هيلز-بالقاهرة-الجديدة-امام-الجامعة-الأمريكية-ID208858056.html,rent,شقة بكمبوند ذا فيلدج بالم هيلز بالقاهرة الجديدة امام الجامعة الأمريكية,35000,90.00,1,1,Apartment,,,No,5th Settlement,The Village,"شقة غرفة نوم + ريسبشن و حمام و مطبخ بالتكييفات والأجهزة للايجار امام الجامعة الامريكية مباشرة من المالك مباشرة 
                                                                                    1 bedroom semi furnished in the village new cairo ( palm hills )
-kitchen cabinets & all appliances + Ac's",2026-09-01T09:12:00.424673+00:00,2026-09-03T13:37:22.374908+00:00,0,Eslam,1,True
+kitchen cabinets & all appliances + Ac's",2026-09-01T09:12:00.424673+00:00,2026-09-03T13:37:22.374908+00:00,1,Eslam,1,True
 29515111,https://www.dubizzle.com.eg/ad/3-bedrooms-apartment-at-hydepark-centerville-fully-furnished-ID208856330.html,rent,3 bedrooms apartment at Hydepark Centerville - Fully Furnished,50000,163,3,2,Apartment,,,Yes,5th Settlement,,"3 bedrooms (1 Master+Bathroom, 2 kids bedrooms)
 Kitchen (Refrigerator, cooker, fully automatic washing machine )
 Dining table with 6 tables 
@@ -504,7 +554,8 @@ Very prime location and view
 
 Reduced price for the direct buyers 
 
-Total price 13.1 million",2026-09-01T14:58:51.707446+00:00,2026-09-03T10:07:43.721587+00:00,1,ali tamer ,1,True
+Total price 13.2 million",2026-09-01T14:58:51.707446+00:00,2026-09-04T16:13:40.287809+00:00,0,ali tamer ,1,True
+29033195,https://www.dubizzle.com.eg/ad/الياسمين-٨-للبيع-شقة-لؤطة-متشطبة-٢-نوم-ارضي-منخفض-في-اجل-مربع-سكني-ID208546462.html,sale,الياسمين ٨ للبيع شقة لؤطة متشطبة ٢ نوم  ارضي منخفض في اجل مربع سكني,5000000,150,2,2,Apartment,Ready,Cash,No,5th Settlement,,للبيع شقة خطيره بحري ارضي منخفض فيو جاردن مساحة ١٥٠م + ١٠٠ م حديقة متشطبة سوبر لوكس ٢ نوم ٢ حمام رسبشن ٣ قطع الياسمين ٨ من اقوي و اجمل المربعات السكنيه في التجمع الخامس علي الاطلاق,2026-09-01T14:47:08.329649+00:00,2026-09-01T15:02:32.130363+00:00,3,ياسر قاسم,1,True
 29538898,https://www.dubizzle.com.eg/ad/استوديو-للايجار-بالتجمع-الخامس-من-المالك-مباشرا-للرجال-فقط-ID208869888.html,rent,استوديو للايجار بالتجمع الخامس من المالك مباشرا للرجال فقط,10000,40,1,1,Studio,,,Yes,5th Settlement,,"مشاهدة ڤيديو تفصيلي للمكان نرجو إرسال رسالة على الواتس آب
  نرجو قراءة الإعلان بالكامل
 
@@ -538,7 +589,7 @@ Total price 13.1 million",2026-09-01T14:58:51.707446+00:00,2026-09-03T10:07:43.7
  ملاحظات:
 
 	•	في حالة المكاتب والسمسرة: العمولة من المستأجر فقط
-	•	التواصل على الواتس آب أولًا ثم هاتفيًا",2026-09-01T17:58:37.059320+00:00,2026-09-01T18:12:09.447516+00:00,2,مصطفى ,1,True
+	•	التواصل على الواتس آب أولًا ثم هاتفيًا",2026-09-01T17:58:37.059320+00:00,2026-09-01T18:12:09.447516+00:00,3,مصطفى ,1,True
 28695034,https://www.dubizzle.com.eg/ad/بدون-عمولة-شقة-نصف-مفروشة-في-التجمع-5-تشطيب-حديث-امام-الجوي-ID208323642.html,rent,بدون عمولة شقة نصف مفروشة في التجمع 5 تشطيب حديث امام الجوي,24000,200,3,2,Apartment,,,No,5th Settlement,,"فرصة شقة نصف مفروشة قريبة من المونوريل 
 semi furnished apartment close to monorail 
 3 bedrooms 
@@ -553,7 +604,7 @@ semi furnished apartment close to monorail
 نت فايبر خط ارضي
 كاميرات مراقبة 
 حارس 
-العمارة عائلات",2026-09-01T14:55:02.668459+00:00,2026-09-01T15:17:07.534184+00:00,2,طارق,1,True
+العمارة عائلات",2026-09-01T14:55:02.668459+00:00,2026-09-01T15:17:07.534184+00:00,3,طارق,1,True
 29417483,https://www.dubizzle.com.eg/ad/apartment-for-rent-in-cairo-festival-city-cfc-aura-ID208792307.html,rent,apartment for rent in cairo festival city (cfc- Aura),70000,200,3,3,Apartment,,,No,5th Settlement,Cairo Festival City,"Apartment for Rent in Aura – CFC
 
 200 sqm apartment in Cairo Festival City, 5th floor. 
@@ -633,7 +684,7 @@ Asking for 35K EGP/monthly.",2026-09-02T08:32:23.352487+00:00,2026-09-02T08:34:0
 عفوا  لاتوجد عموله للساده  السماسره و المكاتب  
 للمعاينه رجاء التنسيق مع الحارس 
 موبيل [redacted phone number]#[redacted phone number]#((01142190121))       
-واتساب [redacted phone number]#[redacted phone number]#((01061555130))",2026-09-02T13:22:55.351136+00:00,2026-09-02T13:46:05.464675+00:00,1,باسم الامير,2,True
+واتساب [redacted phone number]#[redacted phone number]#((01061555130))",2026-09-02T13:22:55.351136+00:00,2026-09-02T13:46:05.464675+00:00,2,باسم الامير,2,True
 29544804,https://www.dubizzle.com.eg/ad/شقه-للايجار-التجمع-الخامس-ID208874237.html,rent,شقه للايجار التجمع الخامس,35000,300.00,4,4,Duplex,,,No,5th Settlement,,شقه للايجار في التجمع الخامس على امتداد الاندلس قريبه من الجامعه الامريكيه موقع مميز اول سكن دوبلكس مساحتها 300 متر تشطيب سوبر ديلوكس,2026-09-02T09:49:03.854805+00:00,2026-09-02T09:59:25.059628+00:00,2,nour mhd,2,True
 28494508,https://www.dubizzle.com.eg/ad/kattameya-creeks-for-sale-luxurious-ground-floor-apartment-ID208194458.html,sale,KATTAMEYA CREEKS FOR SALE: LUXURIOUS GROUND FLOOR APARTMENT,25000000,175,3,4,Apartment,Ready,,No,5th Settlement,Katameya Creeks,"For SALE: Ground Floor Luxury Apartment with Large Private Garden , Katameya Creeks, New Cairo
 
@@ -650,7 +701,7 @@ Smart Layout:
 	•	Nanny’s Room with private bathroom
 	•	Guest Bathroom
 	•	Spacious reception area with direct access to the terrace and garden
-For more information contact me",2026-09-02T13:13:20.718018+00:00,2026-09-02T13:32:26.601748+00:00,1,Emad,2,True
+For more information contact me",2026-09-02T13:13:20.718018+00:00,2026-09-02T13:32:26.601748+00:00,2,Emad,2,True
 29552353,https://www.dubizzle.com.eg/ad/للايجار-بمنزل-عائلي-شقه-١١٠-متر-جاردينيا-هايتس١-التجمع-الخامس-ID208877497.html,rent,للايجار بمنزل عائلي شقه ١١٠ متر جاردينيا هايتس١ التجمع الخامس,11000,110.00,2,1,Apartment,,,No,5th Settlement,,"للايجار شقه ١١٠ متر
 ٢ غرفه 
 صاله قطعتين , حمام ومطبخ مفتوح عالرسيبشن
@@ -661,7 +712,7 @@ For more information contact me",2026-09-02T13:13:20.718018+00:00,2026-09-02T13:
 
 مطلوب اسره صغيره للسكن
 التواصل مع المالك مباشرا
-لا داعي للوسطاء تماما",2026-09-02T17:04:05.719111+00:00,2026-09-02T17:05:51.521814+00:00,1,Hisham Badr,1,True
+لا داعي للوسطاء تماما",2026-09-02T17:04:05.719111+00:00,2026-09-02T17:05:51.521814+00:00,2,Hisham Badr,1,True
 28285426,https://www.dubizzle.com.eg/ad/شقه-فندقيه-مفروشه-كمبوند-الاشرافيه-التجمع-الاول-للايجار-فترات-طويله-ID208057118.html,rent,شقه فندقيه  مفروشه كمبوند الاشرافيه التجمع الاول للايجار فترات طويله,25000,70,2,1,Hotel Apartment,,,Yes,5th Settlement,,"عرض إيجار شقة فاخرة - كمبوند الأشرفية
 
  شقة تشطيب سوبر لوكس للايجار
@@ -718,8 +769,7 @@ For more information contact me",2026-09-02T13:13:20.718018+00:00,2026-09-02T13:
 
  للاستفسار أو ترتيب معاينة الشقة:
 
-[redacted phone number]#[redacted phone number]#((0155 5122382))",2026-09-02T14:52:59.540099+00:00,2026-09-02T15:14:06.760333+00:00,1,romany,1,True
-29105710,https://www.dubizzle.com.eg/ad/شقة-البنفسج-عمارات-٢٠٠-متر-دور-ارضى-امام-مؤمن-و-بشار-ID208593096.html,sale,شقة البنفسج عمارات ٢٠٠ متر دور ارضى امام مؤمن و بشار,6400000,200,3,1,Apartment,Ready,Cash,Yes,5th Settlement,,شقة بالبنفسج عمارات التجمع الاول دور ارضى بجوار مدرسة بداية ٣ غرف و ريسيبشن و حمام و مطبخ . تشطيب سوبر لوكس تحتاج وش نضافة,2026-09-02T19:04:16.016584+00:00,2026-09-02T19:15:47.433659+00:00,1,ابراهيم,1,True
+[redacted phone number]#[redacted phone number]#((0155 5122382))",2026-09-02T14:52:59.540099+00:00,2026-09-02T15:14:06.760333+00:00,2,romany,1,True
 29020746,https://www.dubizzle.com.eg/ad/دوبلكس-للبيع-موقع-رائع-على-كايرو-فيستيفال-و-المدرسه-الأمريكيه-ID208538092.html,sale,دوبلكس للبيع موقع رائع على كايرو فيستيفال و المدرسه الأمريكيه,13000000,330,5,3,Duplex,Ready,Cash,No,5th Settlement,,"دوبلكس أرضى مرتفع مع ربع البيزمنت فى القاهره الجديده، جنوب الأكاديميه ب.   
 موقع رائع يطل على ميدان العروبه و كايرو فيستيڤال سيتى CFC و المدرسه الأمريكيه و مول زووم الجديد.  
 مُشطّبه بالكامل.  المساحه حوالى 330 متر مربّع، تشمل خمسة غُرف و صالتين و ثلاثة حمّامات و حديقه.   مطلوب 13 مليون جنيه.   مع حصّة فى الأرض. 
@@ -767,7 +817,7 @@ Financial Details
  • الصيانة: 205,280 جنيه (تُدفع على مرتين). 
  • باركينج: 150,000 جنيه.",2026-09-02T09:43:48.974678+00:00,2026-09-03T20:17:26.650067+00:00,0,Daniel Aziz,1,True
 29082750,https://www.dubizzle.com.eg/ad/luxury-furnished-duplex-penthouse-in-patio-oro-golden-square-new-cairo-ID208576456.html,rent,Luxury furnished duplex penthouse in patio oro golden square new cairo,70000,255,3,3,Penthouse,,,Yes,5th Settlement,,"FOR RENT - LUXURY FURNISHED DUPLEX PENTHOUSE IN PATIO ORO GOLDEN SQUARE - NEW CAIRO
-Experience upscale living in this fully furnished duplex penthouse in the prestigious Patio Oro Compound, Golden Square - New Cairo, directly across from the New Capital ، 3 bed rooms ,3 bathrooms.",2026-09-03T11:30:12.923091+00:00,2026-09-03T13:27:32.154458+00:00,0,User 3386G8,1,True
+Experience upscale living in this fully furnished duplex penthouse in the prestigious Patio Oro Compound, Golden Square - New Cairo, directly across from the New Capital ، 3 bed rooms ,3 bathrooms.",2026-09-03T11:30:12.923091+00:00,2026-09-03T13:27:32.154458+00:00,1,User 3386G8,1,True
 29563068,https://www.dubizzle.com.eg/ad/apartment-for-rent-fully-furnished-in-hyde-park-ID208883734.html,rent,Apartment for rent Fully furnished in Hyde park,50000,165.00,3,3,Apartment,,,Yes,5th Settlement,The Key,"Apartment for rent in Hyde park 
 Area: 165m
 3bedrooms 
@@ -782,17 +832,17 @@ Here are the key features of Hyde Park Compound in New Cairo:
  * Hyde Park Business District: Includes a massive commercial and administrative hub providing offices and corporate headquarters, creating a fully integrated live-work-play environment. 
  * Comprehensive Amenities: Equipped with multiple clubhouses, commercial strips, a hypermarket, international restaurants and cafes, medical clinics, and dedicated children's play areas. 
  * Advanced Security: Features a robust 24/7 security system with electronic gates, trained security personnel, and comprehensive CCTV coverage across the entire community. 
- * Flexible Payment Plans: The developing company offers convenient installment options starting with a low down payment (such as 5%) and flexible repayment periods extending up to 8 years.",2026-09-03T13:37:51.912313+00:00,2026-09-03T13:41:18.899807+00:00,0,Zeinab Ahmed ,1,True
+ * Flexible Payment Plans: The developing company offers convenient installment options starting with a low down payment (such as 5%) and flexible repayment periods extending up to 8 years.",2026-09-03T13:37:51.912313+00:00,2026-09-03T13:41:18.899807+00:00,1,Zeinab Ahmed ,1,True
 29559473,https://www.dubizzle.com.eg/ad/شقة-مفروشة-للإيجار-باللوتس-الجنوبية-ID208882376.html,rent,شقة مفروشة للإيجار باللوتس الجنوبية,40000,175,3,3,Apartment,,,Yes,5th Settlement,,"شقة مفروشة للإيجار باللوتس الجنوبية 
 شهري 
 أسبوعي 
 يومي",2026-09-03T10:26:19.064746+00:00,2026-09-03T10:32:50.606427+00:00,1,Mohab Hossam,1,True
-29558250,https://www.dubizzle.com.eg/ad/fully-furnished-apt-studio-villette-ID208881900.html,rent,Fully Furnished Apt & studio Villette,80000,160,3,3,Apartment,,,Yes,5th Settlement,Villette,"شقة وستوديو للإيجار في كمبوند سوديك فيلت بالتجمع – غاز طبيعي – فرش بالكامل أول استخدام. المساحة: الشقة١٦٠ متر، والاستوديو٥٠ متر. الاستوديو غرفة واحدة وحمام ومطبخ وتراس كبير. الشقة غرفتين وصالون ومطبخ وحمامين وريسبشن وتراس أول استخدام. السعر:١٢٠ ألف جنيه مصري لو الاتنين مع بعض. ولو كل واحدة لوحدها: الشقة80 ألف، والاستوديو ٤٥ ألف. المزايا: كمبوند فيه حمام سباحة وخدمة حراسة وامن٢٤ ساعة وموقف عربيات. مطلوب عقد طويل المدة (سنة أو سنتين). الدفع من المالك مباشرةً من غير أي عمولة. للتواصل، راسلني مباشرة أنا صاحب الوحدة. 
+29558250,https://www.dubizzle.com.eg/en/ad/fully-furnished-apt-studio-villette-ID208881900.html,rent,Fully Furnished Apt & studio Villette,80000,160,3,3,Apartment,,,Yes,5th Settlement,Villette,"شقة وستوديو للإيجار في كمبوند سوديك فيلت بالتجمع – غاز طبيعي – فرش بالكامل أول استخدام. المساحة: الشقة١٦٠ متر، والاستوديو٥٠ متر. الاستوديو غرفة واحدة وحمام ومطبخ وتراس كبير. الشقة غرفتين وصالون ومطبخ وحمامين وريسبشن وتراس أول استخدام. السعر:١٢٠ ألف جنيه مصري لو الاتنين مع بعض. ولو كل واحدة لوحدها: الشقة80 ألف، والاستوديو ٤٥ ألف. المزايا: كمبوند فيه حمام سباحة وخدمة حراسة وامن٢٤ ساعة وموقف عربيات. مطلوب عقد طويل المدة (سنة أو سنتين). الدفع من المالك مباشرةً من غير أي عمولة. للتواصل، راسلني مباشرة أنا صاحب الوحدة. 
 
 Apartment and studio for rent in Sodic Villette Compound, New Cairo – natural gas. Fully furnished with new furnisher, first use. Sizes: apartment 160 sqm, studio 50 sqm. The studio has 1 bedroom, 1 bathroom, kitchen, and a big terrace. The apartment has 2 bedrooms, reception , open kitchen, 2 bathrooms, first use. Price: 120,000 EGP for both together. If rented separately: apartment 80,000 EGP, studio 45,000 EGP. Amenities include swimming pool, security 24/7, covered car parking, natural gas. Long-term contract required (one or two years). Direct payment from the owner",2026-09-03T08:51:12.779736+00:00,2026-09-03T08:53:30.305483+00:00,1,Mohamed,1,True
 28791579,https://www.dubizzle.com.eg/ad/شقه-للأيجار-فى-منطقة-فيلات-التجمع-الخامس-قريبه-من-كل-الخدمات-سوبر-لوكس-ID208387116.html,rent,شقه للأيجار فى منطقة فيلات التجمع الخامس قريبه من كل الخدمات سوبر لوكس,20000,160,3,2,Apartment,,,No,5th Settlement,,شقه للأيجار بيزمنت فى ارقى مناطق التجمع الخامس منطقة ڤيلات ، قريبه جدا من كل الخدمات بالحى التانى المنطقه الاولى عباره عن ، ٢ غرفه مع امكانيه تقفبل غرفه ثالثه ، مطبخ امريكانى ، رسيبشن ، ٢ حمام ، مدخل خاص ، حديقه خاصه ، تشطيب سوبر لوكس. تصلح ادارى بشرط نشاط خفيف ، المطوب ٢٠ الف ايجار شهرى ، مطلوب شهرين تأمين وشهر ايجار.  المساحه ١٥٠ متر.,2026-09-03T04:25:47.636505+00:00,2026-09-03T04:35:33.466316+00:00,1,karim el dessouky,1,True
-29509579,https://www.dubizzle.com.eg/ad/شقه-للبيع-في-الاندلس-2-تاني-نمره-من-التسعين-الجنوبي-التجمع-الخامس-ID208851959.html,sale,شقه للبيع في الاندلس 2 تاني نمره من التسعين الجنوبي  التجمع الخامس,5000000,200,3,3,Apartment,Off-plan,Installment,No,5th Settlement,,تاني نمره من التسعين الجنوبي موقع متميز جدا,2026-08-30T16:17:00.021025+00:00,2026-09-03T17:44:36.518931+00:00,0,Hoda,1,True
-29564635,https://www.dubizzle.com.eg/ad/شقه-للإيجار-شارع-ألجزيره-بجوار-الجامعه-الامريكيه-ID208884418.html,rent,شقه للإيجار شارع ألجزيره بجوار الجامعه الامريكيه,23000,120,2,2,Apartment,,,Yes,5th Settlement,,شقه للايجاًر شارع الجزيره بجوار الجامعه الامريكيه,2026-09-03T14:52:29.953059+00:00,2026-09-03T15:25:48.278564+00:00,0,User 6981Qw,1,True
+29509579,https://www.dubizzle.com.eg/ad/شقه-للبيع-في-الاندلس-2-تاني-نمره-من-التسعين-الجنوبي-التجمع-الخامس-ID208851959.html,sale,شقه للبيع في الاندلس 2 تاني نمره من التسعين الجنوبي  التجمع الخامس,5000000,200,3,3,Apartment,Off-plan,Installment,No,5th Settlement,,تاني نمره من التسعين الجنوبي موقع متميز جدا,2026-08-30T16:17:00.021025+00:00,2026-09-03T17:44:36.518931+00:00,1,Hoda,1,True
+29564635,https://www.dubizzle.com.eg/ad/شقه-للإيجار-شارع-ألجزيره-بجوار-الجامعه-الامريكيه-ID208884418.html,rent,شقه للإيجار شارع ألجزيره بجوار الجامعه الامريكيه,23000,120,2,2,Apartment,,,Yes,5th Settlement,,شقه للايجاًر شارع الجزيره بجوار الجامعه الامريكيه,2026-09-03T14:52:29.953059+00:00,2026-09-03T15:25:48.278564+00:00,1,User 6981Qw,1,True
 29563625,https://www.dubizzle.com.eg/ad/fully-furnished-4-bedroom-apartment-for-rent-stone-residence-ID208883990.html,rent,Fully Furnished 4-Bedroom Apartment for Rent / Stone Residence,99000,220.00,4,2,Apartment,,,Yes,5th Settlement,Stone Residence," Premier Line | Pond & Garden View
  USD 1,900/month
 
@@ -812,7 +862,7 @@ Ideal for expat families and corporate relocations. International tenants prefer
 
 The apartment has been carefully maintained and is offered to responsible tenants who will take good care of the property. 
 
- Please WhatsApp me for photos, further details, or to arrange a viewing.",2026-09-03T14:03:40.062225+00:00,2026-09-03T14:08:10.872555+00:00,0,Alicja Kim,1,True
+ Please WhatsApp me for photos, further details, or to arrange a viewing.",2026-09-03T14:03:40.062225+00:00,2026-09-03T14:08:10.872555+00:00,1,Alicja Kim,1,True
 29569388,https://www.dubizzle.com.eg/ad/شقه-٣٠٠متر-للبيع-بكومبوند-الدبلوماسيين-تشطيب-سوبر-لوكس-ID208887574.html,sale,شقه ٣٠٠متر للبيع بكومبوند الدبلوماسيين تشطيب سوبر لوكس,12500000,300.00,5,3,Apartment,Ready,Cash,,5th Settlement,,"للبيع بكومبوند الدبلوماسيين تشطيب سوبر شقه دور اول ٣٠٠متر ٤غرف نوم منهم مستر بدريسنج ليفنج رووم ٣حمام مطبخ ريسبش ٣قطع
 مطلوب ١٢مليون ٥٠٠
 للتواصل والمعاينة [redacted phone number]#(01002775637)
@@ -856,7 +906,6 @@ Contact: [redacted phone number]#[redacted phone number]#((01120068111))",2026-0
 [redacted phone number]#(٠١٠٢٠٠٠٢٥٠٥)",2026-09-03T17:52:03.706657+00:00,2026-09-03T18:32:39.215312+00:00,0,هشام بدران,1,True
 29569453,https://www.dubizzle.com.eg/ad/duplex-for-sale-ID208887616.html,sale,Duplex for sale,14000000,311,3,4,Duplex,Ready,Cash,Yes,5th Settlement,,دوبلكس 311 متر + جاردن 100 متر  مكون من 3 غرف كلها بحمام + دريسنج +حمام للضيوف  واسانسير داخلى تشطيب ألترا ديلوكس أرضيات رخام وHDF مجددة حديثا وسيستم كاميرات بحى النرجس1 فيلات بجوار فندق تيوليب النرجس ومتفرع من شارع التسعين للجادين فقط بدون وسطاء,2026-09-03T21:43:48.734357+00:00,2026-09-03T21:44:40.918658+00:00,0,shoukry abdelrahman,1,True
 29568697,https://www.dubizzle.com.eg/ad/شقة-١٧٥-م-للبيع-في-فيلا-في-التجمع-الخامس-ID208887049.html,sale,شقة ١٧٥ م للبيع في فيلا في التجمع الخامس,6500000,175,3,2,Apartment,Ready,Cash,No,5th Settlement,,شقه ١٧٥م في فيلا في التجمع الخامس اول بلكونه دور اول ٣غرف منهم غرفه ماستر بدريسنج و٢تويلت وريسبشن ٣قطع وتراس كبير ، فيها غاز ونت، تشطيب بورسلين، والحمام الحوض رخام، قريبه من منطقه خدمات ، الحي التالت المنطقة الخامسة خلف المعهد البخاري الأزهري فيلا ١٩٢ الدور الاول,2026-09-03T20:21:09.493822+00:00,2026-09-03T20:25:05.182106+00:00,0,Abdelrahman Mubarak ,1,True
-29567338,https://www.dubizzle.com.eg/ad/new-andros-176-m-ID208886010.html,sale,new Andros 176 m,5000000,176.00,3,3,Apartment,Ready,,,5th Settlement,,it see the south tasen street,2026-09-03T18:08:39.362785+00:00,2026-09-03T18:41:06.610198+00:00,0,"TextFieldState(selection=TextRange(4, 4), text=""Mona"")",1,True
 29569008,https://www.dubizzle.com.eg/ad/3-bedroom-apartment-mivida-kitchen-acs-ID208887294.html,rent,3 Bedroom Apartment | Mivida | kitchen & Acs,65000,186,3,3,Apartment,,,No,5th Settlement,Mivida,"Apartment for rent in Mivida 
 
 
@@ -969,3 +1018,47 @@ Whether you’re looking for a dream home or a high-value investment, this penth
 و النت برضو ‎
 مطلوب ٢٠ الف ايجار شهري 
 شهر مقدم و شهر تأمين",2026-09-04T09:09:37.822990+00:00,2026-09-04T09:15:25.489103+00:00,0,Ahmed,1,True
+29375263,https://www.dubizzle.com.eg/ad/شقة-بحرية-للبيع-بفيو-مميز-بدار-مصر-الأندلس-ID208763892.html,sale,شقة بحرية للبيع بفيو مميز بدار مصر الأندلس,4200000,140,3,3,Apartment,Ready,Cash,No,5th Settlement,,"فرصة لهواة التميز شقة للبيع ١٤٠ م زوون ٢
+بدار مصر الأندلس التجمع الخامس
+بحرية موقع مميز فيوووو رائع 
+مالك اصيل 
+ثلاث عدادات
+ثلاث غرف منها غرفة ماستر
+ثلاث حمامات
+الدور الثاني بعد الأرضى 
+مصعد بالعمارة
+موقعها بالكمبوند
+ أمام جامعة الحياة بالقاهرة وجامعة ممفيس مباشرة وقريبة جدا من كنيسة الكاروز القبطية الارثوذكسية بالقاهرة الجديدة
+خالصة الثمن",2026-09-04T17:26:13.065660+00:00,2026-09-04T17:26:35.026789+00:00,0,Mohamed,2,True
+29572812,https://www.dubizzle.com.eg/ad/90-avenue-appartment-ID208890360.html,sale,90 Avenue appartment,12000000,164,2,2,Apartment,Ready,Cash,No,5th Settlement,90 Avenue,"شقة للبيع في ناينتي أفينيو امام الجامعة الامريكية بجوار مول point 90
+
+- المساحة: 164 متر + حديقة
+- المكونات: 2 غرفة نوم (بهما walk-in closet)، ٢ حمام، مطبخ، صالة واسعة، بلكونة
+- الموقع: كمبوند 90 أفينيو، شارع ال90، بجانب مول بيونت 90، أمام الجامعة الأمريكية مباشرة
+- مميزات الكمبوند:
+- حمام سباحة
+- ملاعب تينيس
+- ألعاب أطفال
+- جيم
+- مساحات خضراء
+- الشقة لها باركينج مغطي
+- ⁠مول تحت الانشاء
+- السعر المطلوب: ١٢،٠٠٠،٠٠٠  جنيه",2026-09-04T17:03:46.608292+00:00,2026-09-04T17:08:14.240459+00:00,0,Mona,1,True
+29577045,https://www.dubizzle.com.eg/ad/شقة-في-الشويفات-موقع-مميز-جاهزة-للاستلام-فورا-التواصل-واتساب-فقط-ID208893580.html,sale,شقة في الشويفات موقع مميز جاهزة للاستلام فورا التواصل واتساب فقط,14000000,200,3,3,Apartment,Ready,Cash,,5th Settlement,,"التواصل واتساب فقط
+شقة  الدور التاني 
+الشويفات التجمع الخامس
+المساحة ٢٠٠م
+ ٣ غرف نوم  منهم ١ Master بالdressing و الحمام بتاعها. 
+في ٢ حمام كمان غير  بتاع الMaster 
+Living room w american kitchen
+بلكونة و بصة على جنينة
+متشطبة بالكامل تشطيب luxury بتدفئة مركزية
+مسكنتش قبل كده
+جاهزة على المفتاح
+الارض واخدينها من الجهاز مباشرة و بنينها على المساحة القانونية و مفيش مخالفات. 
+ المبنى بردو معاه رخصة اسانسير",2026-09-04T16:54:31.278550+00:00,2026-09-04T17:36:10.385836+00:00,0,seller,1,True
+27783739,https://www.dubizzle.com.eg/ad/شقه-للأيجار-بالتجمع-الاول-الياسمين-ID207727429.html,rent,شقه للأيجار بالتجمع الاول الياسمين,30000,240,3,2,Apartment,,,No,5th Settlement,,"شقه للأيجار بالتجمع الاول الياسمين ٨ - ٢٤٠ م
+
+تشطيب سوبر لوكس ٢٤٠م من المالك مباشره الدور الاول علي شارع الرئيسي محور مصطفي كامل.",2026-09-04T17:39:26.755353+00:00,2026-09-04T17:41:10.977271+00:00,0,lidia adel,1,True
+29574369,https://www.dubizzle.com.eg/ad/شقة-للإيجار-بالتجمع-الخامس-ID208891540.html,rent,شقة للإيجار بالتجمع الخامس,9000,64.00,2,1,Apartment,,,No,5th Settlement,,شقة للإيجار بالتجمع الخامس 64 م أول إيجار لها غرفتين وصاله وحمام ومطبخ بالدور الثالث فوق الأرضي,2026-09-04T14:17:34.260047+00:00,2026-09-04T14:24:56.835138+00:00,0,إسلام عماد ,2,True
+29574726,https://www.dubizzle.com.eg/ad/شقة-للايجار-بالقاهرة-الجديدة-مساحة-180متر-ID208891803.html,rent,شقة للايجار بالقاهرة الجديدة مساحة 180متر,18000,180.00,3,2,Apartment,,,No,5th Settlement,,شقة للايجار مالك ولايوجد وسيط,2026-09-04T13:23:32.863232+00:00,2026-09-04T13:28:01.711481+00:00,0,magdy ,1,True
