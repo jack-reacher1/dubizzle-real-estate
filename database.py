@@ -98,7 +98,7 @@ class PostgresStore:
                         _int_or_none(row.get("active_ads_count")),
                         row.get("active_ads_count_source") or None,
                         row.get("classification") or None,
-                        row.get("checked_at") or None,
+                        _timestamp_or_none(row.get("checked_at")),
                         _as_bool(row.get("blocklist_permanent")),
                     )
 
@@ -219,6 +219,17 @@ def _int_or_none(value: Any) -> int | None:
 
 def _as_bool(value: Any) -> bool:
     return str(value).lower() in {"true", "1", "t", "yes"}
+
+
+def _timestamp_or_none(value: Any) -> datetime | None:
+    if value in (None, ""):
+        return None
+    if isinstance(value, datetime):
+        return value
+    try:
+        return datetime.fromisoformat(str(value))
+    except ValueError:
+        return None
 
 
 def _db_listing_row(row) -> dict:

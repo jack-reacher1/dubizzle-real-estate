@@ -8,6 +8,7 @@ import pytest
 @pytest.fixture(autouse=True)
 def isolate_test_data(monkeypatch, tmp_path):
     """Keep all CSV reads and writes inside a temporary per-test data directory."""
+    monkeypatch.setenv("STORAGE_BACKEND", "csv")
     repo_root = Path(__file__).resolve().parents[1]
     data_dir = tmp_path / "data"
     data_dir.mkdir()
