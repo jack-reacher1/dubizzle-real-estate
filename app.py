@@ -5,8 +5,12 @@ from services.listings import ListingsService
 from pathlib import Path
 import os
 import json
+import csv
+import tempfile
 from datetime import datetime
 from dotenv import load_dotenv
+from cron import router as cron_router
+from database import database_enabled
 
 load_dotenv()
 
@@ -22,21 +26,24 @@ APP_MAX_PER_PAGE = int(os.getenv("APP_MAX_PER_PAGE", "200"))
 ASYNCPG_STATEMENT_CACHE_SIZE = int(os.getenv("ASYNCPG_STATEMENT_CACHE_SIZE", "0"))
 
 app = FastAPI()
+app.include_router(cron_router)
 
 app.mount("/static", StaticFiles(directory="static"), name="static")
 service = ListingsService()
 
 @app.on_event("startup")
 async def startup_event():
-    database_url = os.getenv("DATABASE_URL")
+    database_url = os.getenv("DATABASE_URL") if database_enabled() else None
     if database_url and asyncpg:
         # Supabase uses PgBouncer by default; asyncpg prepared statement caching must be disabled
         # or the app will hit "prepared statement already exists" on repeated queries.
         app.state.db_pool = await asyncpg.create_pool(
             dsn=database_url,
-            min_size=1,
-            max_size=5,
+            min_size=0,
+            max_size=int(os.getenv("DB_POOL_MAX_SIZE", "3")),
             statement_cache_size=ASYNCPG_STATEMENT_CACHE_SIZE,
+            timeout=float(os.getenv("DB_CONNECT_TIMEOUT_SECONDS", "10")),
+            command_timeout=float(os.getenv("DB_COMMAND_TIMEOUT_SECONDS", "30")),
         )
     else:
         app.state.db_pool = None
@@ -74,6 +81,7 @@ def _validate_positive_int(name: str, value: str, min_value: int = 0, max_value:
 
 
 ALLOWED_SORTS = {"newest", "oldest", "price_asc", "price_desc", "area_asc", "area_desc"}
+ALLOWED_LEAD_STATUSES = {"new", "contacted"}
 
 
 @app.get("/api/listings")
@@ -91,6 +99,11 @@ async def api_listings(request: Request):
     for key in ("q", "listing_type", "property_type", "compound", "completion_status"):
         if has_value(key):
             params[key] = raw[key]
+
+    if has_value("lead_status"):
+        if raw["lead_status"] not in ALLOWED_LEAD_STATUSES:
+            raise HTTPException(status_code=400, detail="Invalid lead_status")
+        params["lead_status"] = raw["lead_status"]
 
     # numeric filters
     for key, name in (("min_price", "min_price"), ("max_price", "max_price"),
@@ -126,6 +139,7 @@ async def api_listings(request: Request):
 
     # reject unknown params to avoid silent acceptance
     known = {"q", "listing_type", "property_type", "compound", "completion_status",
+             "lead_status",
              "min_price", "max_price", "min_area", "max_area", "bedrooms_min", "bathrooms_min",
              "page", "per_page", "sort", "freshness"}
     unknown = set(raw.keys()) - known
@@ -133,7 +147,12 @@ async def api_listings(request: Request):
         raise HTTPException(status_code=400, detail=f"Unknown query parameters: {', '.join(sorted(unknown))}")
 
     try:
-        result = service.query(params)
+        db_pool = getattr(app.state, "db_pool", None)
+        if db_pool:
+            rows = await db_pool.fetch("SELECT * FROM business_listings")
+            result = ListingsService.from_rows([dict(row) for row in rows]).query(params)
+        else:
+            result = service.query(params)
         return JSONResponse(content=result)
     except HTTPException:
         raise
@@ -141,9 +160,72 @@ async def api_listings(request: Request):
         raise HTTPException(status_code=500, detail=str(e))
 
 
+def _update_csv_lead_status(path: Path, ad_id: str, status: str) -> bool:
+    if not path.exists():
+        return False
+    with path.open(newline="", encoding="utf-8") as handle:
+        reader = csv.DictReader(handle)
+        rows = list(reader)
+        fieldnames = list(reader.fieldnames or [])
+    found = False
+    for row in rows:
+        if row.get("ad_id") == ad_id:
+            row["lead_status"] = status
+            found = True
+    if not found:
+        return False
+    if "lead_status" not in fieldnames:
+        fieldnames.append("lead_status")
+    with tempfile.NamedTemporaryFile(
+        "w", newline="", encoding="utf-8", delete=False, dir=str(path.parent)
+    ) as handle:
+        writer = csv.DictWriter(handle, fieldnames=fieldnames)
+        writer.writeheader()
+        writer.writerows(rows)
+        temporary = Path(handle.name)
+    temporary.replace(path)
+    return True
+
+
+@app.patch("/api/listings/{ad_id}/lead-status")
+async def update_lead_status(ad_id: str, request: Request):
+    try:
+        payload = await request.json()
+    except Exception:
+        raise HTTPException(status_code=400, detail="Invalid JSON body")
+    status = payload.get("status") if isinstance(payload, dict) else None
+    if status not in ALLOWED_LEAD_STATUSES:
+        raise HTTPException(status_code=400, detail="Invalid status")
+
+    db_pool = getattr(app.state, "db_pool", None)
+    if db_pool:
+        updated = await db_pool.fetchrow(
+            "UPDATE listings SET lead_status = $2 WHERE ad_id = $1 "
+            "RETURNING ad_id, lead_status",
+            ad_id, status,
+        )
+        if not updated:
+            raise HTTPException(status_code=404, detail="Listing not found")
+        return {"ad_id": updated["ad_id"], "lead_status": updated["lead_status"]}
+
+    data_dir = Path(os.getenv("DATA_DIR", "data"))
+    paths = [service.csv_path, data_dir / os.getenv("LISTINGS_CSV_NAME", "listings.csv")]
+    found = False
+    for path in dict.fromkeys(paths):
+        found = _update_csv_lead_status(path, ad_id, status) or found
+    if not found:
+        raise HTTPException(status_code=404, detail="Listing not found")
+    service._load()
+    return {"ad_id": ad_id, "lead_status": status}
+
+
 @app.get("/api/compounds")
 async def api_compounds(q: str = ""):
     try:
+        db_pool = getattr(app.state, "db_pool", None)
+        if db_pool:
+            rows = await db_pool.fetch("SELECT * FROM business_listings")
+            return JSONResponse(content=ListingsService.from_rows([dict(row) for row in rows]).compounds(q))
         return JSONResponse(content=service.compounds(q))
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
@@ -151,7 +233,12 @@ async def api_compounds(q: str = ""):
 
 @app.get("/api/listing/{ad_id}")
 async def api_listing(ad_id: str):
-    r = service.get(ad_id)
+    db_pool = getattr(app.state, "db_pool", None)
+    if db_pool:
+        row = await db_pool.fetchrow("SELECT * FROM business_listings WHERE ad_id = $1", ad_id)
+        r = ListingsService.from_rows([dict(row)]).get(ad_id) if row else {}
+    else:
+        r = service.get(ad_id)
     if not r:
         raise HTTPException(status_code=404, detail="Listing not found")
     return JSONResponse(content=r)

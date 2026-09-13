@@ -1,0 +1,10 @@
+.env
+.venv/
+__pycache__/
+.pytest_cache/
+.vscode/
+*.py[cod]
+scripts/__pycache__/
+services/__pycache__/
+tests/__pycache__/
+worker/__pycache__/

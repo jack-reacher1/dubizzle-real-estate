@@ -883,6 +883,18 @@ a {
     #ffad92;
 }
 
+.lead-status-badge.new {
+  background: rgba(184, 194, 209, 0.10);
+  border: 1px solid rgba(184, 194, 209, 0.18);
+  color: var(--text-soft);
+}
+
+.lead-status-badge.contacted {
+  background: rgba(85, 214, 164, 0.12);
+  border: 1px solid rgba(85, 214, 164, 0.18);
+  color: #7be7bd;
+}
+
 .listing-title {
   margin: 0;
 

@@ -1,6 +1,6 @@
 import csv
 
-from scraper import build_ad_url, generate_business_dataset, normalize_hit
+from scraper import Listing, build_ad_url, generate_business_dataset, merge_and_save, normalize_hit
 
 
 def _write_fixture(data_dir, listings, sellers):
@@ -55,6 +55,128 @@ def test_generate_business_dataset(tmp_path):
     assert len(rows) == 1
     assert rows[0]['ad_id'] == '1'
     assert rows[0]['likely_owner'] == 'True'
+
+
+def test_merge_and_save_prunes_inactive_rows(tmp_path):
+    data_dir = tmp_path / 'data'
+    data_dir.mkdir(parents=True, exist_ok=True)
+    listings_csv = data_dir / 'listings.csv'
+
+    with open(listings_csv, 'w', newline='', encoding='utf-8') as f:
+        writer = csv.DictWriter(
+            f,
+            fieldnames=['ad_id','ad_url','listing_type','title','price','area_sqm','bedrooms','bathrooms','property_type','completion_status','payment_method','ownership','furnished','location_text','compound','location_link','amenities','description_full','phone_in_description','posted_at','updated_at','scraped_at','days_since_updated','is_verified_business','is_agency','agency_name','has_broker_code_pattern','seller_repeat_count','seller_id','seller_name','first_seen_date','last_seen_date','is_active'],
+        )
+        writer.writeheader()
+        writer.writerow({
+            'ad_id': 'old-inactive',
+            'ad_url': 'https://example.com/old',
+            'listing_type': 'sale',
+            'title': 'old',
+            'price': '100',
+            'area_sqm': '80',
+            'bedrooms': '2',
+            'bathrooms': '2',
+            'property_type': 'Apartment',
+            'completion_status': 'Ready',
+            'payment_method': 'Cash',
+            'ownership': 'Freehold',
+            'furnished': 'No',
+            'location_text': 'New Cairo',
+            'compound': 'The Fifth',
+            'location_link': '',
+            'amenities': '',
+            'description_full': 'old',
+            'phone_in_description': '',
+            'posted_at': '2026-08-10',
+            'updated_at': '2026-08-10T00:00:00+00:00',
+            'scraped_at': '2026-08-10T00:00:00+00:00',
+            'days_since_updated': '0',
+            'is_verified_business': 'False',
+            'is_agency': 'False',
+            'agency_name': '',
+            'has_broker_code_pattern': 'False',
+            'seller_repeat_count': '0',
+            'seller_id': 's_old',
+            'seller_name': 'Old Seller',
+            'first_seen_date': '2026-08-01',
+            'last_seen_date': '2026-07-01',
+            'is_active': 'False',
+        })
+        writer.writerow({
+            'ad_id': 'recent-inactive',
+            'ad_url': 'https://example.com/recent',
+            'listing_type': 'sale',
+            'title': 'recent',
+            'price': '120',
+            'area_sqm': '85',
+            'bedrooms': '2',
+            'bathrooms': '2',
+            'property_type': 'Apartment',
+            'completion_status': 'Ready',
+            'payment_method': 'Cash',
+            'ownership': 'Freehold',
+            'furnished': 'No',
+            'location_text': 'New Cairo',
+            'compound': 'The Fifth',
+            'location_link': '',
+            'amenities': '',
+            'description_full': 'recent',
+            'phone_in_description': '',
+            'posted_at': '2026-08-20',
+            'updated_at': '2026-08-20T00:00:00+00:00',
+            'scraped_at': '2026-08-20T00:00:00+00:00',
+            'days_since_updated': '0',
+            'is_verified_business': 'False',
+            'is_agency': 'False',
+            'agency_name': '',
+            'has_broker_code_pattern': 'False',
+            'seller_repeat_count': '0',
+            'seller_id': 's_recent',
+            'seller_name': 'Recent Seller',
+            'first_seen_date': '2026-08-18',
+            'last_seen_date': '2026-08-20',
+            'is_active': 'False',
+        })
+
+    merge_and_save([
+        Listing(
+            ad_id='new-active',
+            ad_url='https://example.com/new',
+            listing_type='sale',
+            title='new',
+            price='250',
+            area_sqm='100',
+            bedrooms='3',
+            bathrooms='2',
+            completion_status='Ready',
+            payment_method='Cash',
+            ownership='Freehold',
+            furnished='No',
+            location_text='New Cairo',
+            compound='The Fifth',
+            description_full='new',
+            posted_at='2026-08-21',
+            updated_at='2026-08-21T00:00:00+00:00',
+            scraped_at='2026-08-21T00:00:00+00:00',
+            days_since_updated='0',
+            is_verified_business='False',
+            is_agency='False',
+            agency_name='',
+            has_broker_code_pattern='False',
+            seller_repeat_count='0',
+            seller_id='s_new',
+            seller_name='New Seller',
+            first_seen_date='2026-08-21',
+            last_seen_date='2026-08-21',
+            is_active=True,
+        )
+    ])
+
+    with open(listings_csv, newline='', encoding='utf-8') as f:
+        rows = list(csv.DictReader(f))
+
+    assert {row['ad_id'] for row in rows} == {'new-active', 'recent-inactive'}
 
 
 def test_build_ad_url_prefers_canonical_source_url():

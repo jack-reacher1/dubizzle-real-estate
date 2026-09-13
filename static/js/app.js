@@ -180,11 +180,18 @@ const state = {
     );
   }
 
+  function selectedLeadStatus() {
+    return document.querySelector(
+      'input[name="lead_status_ui"]:checked'
+    )?.value || '';
+  }
+
   function buildParams(page = 1) {
     const params = new URLSearchParams();
 
     const values = {
       listing_type: selectedListingType(),
+      lead_status: selectedLeadStatus(),
       property_type: $('property_type')?.value || '',
       compound: $('compound')?.value?.trim() || '',
       min_price: $('min_price')?.value || '',
@@ -400,6 +407,14 @@ const state = {
                     }</span>`
                   : ''
               }
+
+              <span class="badge lead-status-badge ${
+                listing.lead_status === 'contacted'
+                  ? 'contacted'
+                  : 'new'
+              }">
+                ${listing.lead_status === 'contacted' ? 'تم التواصل' : 'لسه ما اتواصلتش'}
+              </span>
             </div>
 
             <h3 class="listing-title">
@@ -466,6 +481,15 @@ const state = {
         </div>
 
         <div class="card-actions">
+          <button
+            class="btn btn-contact ${listing.lead_status === 'contacted' ? 'btn-contacted' : 'btn-primary'}"
+            type="button"
+            data-ad-id="${escapeHtml(listing.ad_id)}"
+            ${listing.lead_status === 'contacted' ? 'disabled' : ''}
+          >
+            ${listing.lead_status === 'contacted' ? 'تم التواصل' : 'تواصلت معاه'}
+          </button>
+
           <button
             class="btn btn-ghost btn-details"
             type="button"
@@ -631,6 +655,25 @@ const state = {
     }
   }
 
+  async function markContacted(adId, button) {
+    button.disabled = true;
+    try {
+      await fetchJson(`/api/listings/${encodeURIComponent(adId)}/lead-status`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ status: 'contacted' })
+      });
+      const listing = state.currentResults.find((item) => item.ad_id === adId);
+      if (listing) {
+        listing.lead_status = 'contacted';
+        renderResults(state.currentResults, state.totalResults, state.currentPage, state.totalPages);
+      }
+    } catch (error) {
+      button.disabled = false;
+      console.error('[UI] Failed to update lead status:', error);
+    }
+  }
+
   async function fetchCompounds(query = '') {
     const payload = await fetchJson(
       `/api/compounds?q=${encodeURIComponent(query)}`
@@ -728,6 +771,14 @@ const state = {
 
     if (allListingType) {
       allListingType.checked = true;
+    }
+
+    const allLeadStatus = document.querySelector(
+      'input[name="lead_status_ui"][value=""]'
+    );
+
+    if (allLeadStatus) {
+      allLeadStatus.checked = true;
     }
 
     $('sort').value = 'newest';
@@ -1042,6 +1093,15 @@ const state = {
         );
       });
 
+    document
+      .querySelectorAll('input[name="lead_status_ui"]')
+      .forEach((input) => {
+        input.addEventListener('change', () => {
+          updateActiveFilters();
+          loadAndRender();
+        });
+      });
+
     /*
      * Discrete filters:
      * Apply immediately because the user chooses
@@ -1171,6 +1231,12 @@ const state = {
             loadAndRender({
               append: true
             });
+            return;
+          }
+
+          const contactButton = event.target.closest('.btn-contact');
+          if (contactButton && !contactButton.disabled) {
+            markContacted(contactButton.dataset.adId, contactButton);
             return;
           }
           const retry =

@@ -17,12 +17,16 @@ API_MAX_PER_PAGE = int(os.getenv("APP_MAX_PER_PAGE", "200"))
 
 
 class ListingsService:
-    def __init__(self, csv_path: Path = BUSINESS_CSV):
+    def __init__(self, csv_path: Path = BUSINESS_CSV, rows=None):
         self.csv_path = csv_path
+        self._provided_rows = rows
         self._load()
 
     def _load(self):
-        self.rows: List[Dict[str, Any]] = []
+        self.rows: List[Dict[str, Any]] = list(self._provided_rows or [])
+
+        if self._provided_rows is not None:
+            return
 
         if not self.csv_path.exists():
             return
@@ -36,6 +40,10 @@ class ListingsService:
 
             for r in reader:
                 self.rows.append(r)
+
+    @classmethod
+    def from_rows(cls, rows):
+        return cls(rows=rows)
 
     @staticmethod
     def _to_int(value):
@@ -157,6 +165,7 @@ class ListingsService:
         """
         copy_row = cls._with_dynamic_freshness(row)
         copy_row = cls._normalize_active_ads_count(copy_row)
+        copy_row["lead_status"] = copy_row.get("lead_status") or "new"
 
         return copy_row
 
@@ -199,6 +208,13 @@ class ListingsService:
                 r
                 for r in results
                 if r.get("listing_type") == p["listing_type"]
+            ]
+
+        if p.get("lead_status"):
+            results = [
+                r
+                for r in results
+                if (r.get("lead_status") or "new") == p["lead_status"]
             ]
 
         # Property type

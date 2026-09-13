@@ -55,6 +55,8 @@ from html import unescape
 import requests
 from dotenv import load_dotenv
 
+from database import PostgresStore, database_enabled
+
 load_dotenv()
 
 
@@ -178,6 +180,7 @@ ALL_FIELDS = [
     "first_seen_date",
     "last_seen_date",
     "is_active",
+    "lead_status",
 ]
 
 
@@ -207,6 +210,7 @@ BUSINESS_FIELDS = [
     "seller_name",
     "active_ads_count",
     "likely_owner",
+    "lead_status",
 ]
 
 
@@ -262,6 +266,7 @@ class Listing:
     first_seen_date: Optional[str] = None
     last_seen_date: Optional[str] = None
     is_active: bool = True
+    lead_status: str = "new"
 
 
 # ---------------------------------------------------------------------------
@@ -1680,6 +1685,9 @@ def load_sellers_cache() -> dict[str, dict]:
     Existing sellers are loaded and retained across runs.
     """
 
+    if database_enabled():
+        return PostgresStore().load_sellers_cache()
+
     if not SELLERS_CSV.exists():
         return {}
 
@@ -1745,6 +1753,10 @@ def save_sellers_cache(
     - owner/broker classification remains
     - new sellers are added
     """
+
+    if database_enabled():
+        PostgresStore().save_sellers_cache(cache)
+        return
 
     fieldnames = [
         "seller_id",
@@ -2349,6 +2361,9 @@ def apply_broker_detection(
 
 def load_existing_ads() -> dict[str, dict]:
 
+    if database_enabled():
+        return PostgresStore().load_existing_ads()
+
     if not ADS_CSV.exists():
         return {}
 
@@ -2417,6 +2432,10 @@ def merge_and_save(
     not grow indefinitely.
     """
 
+    if database_enabled():
+        PostgresStore().merge_and_save(new_listings, INACTIVE_RETENTION_DAYS)
+        return
+
     today = datetime.now(
         timezone.utc
     ).date().isoformat()
@@ -2450,6 +2469,7 @@ def merge_and_save(
         row["last_seen_date"] = today
 
         row["is_active"] = True
+        row["lead_status"] = (prior.get("lead_status") or "new") if prior else "new"
 
         # Never accidentally overwrite an old valid URL
         # with an empty URL if current resolution failed.
@@ -2735,6 +2755,9 @@ def generate_business_dataset(
     - seller classified as owner
     """
 
+    if database_enabled() and listings_csv == ADS_CSV and sellers_csv == SELLERS_CSV:
+        return
+
     if not listings_csv.exists():
 
         log.error(
@@ -3018,8 +3041,6 @@ def save_scrape_status(
     pipeline, not merely the time at which individual listings were fetched.
     """
 
-    DATA_DIR.mkdir(exist_ok=True)
-
     payload = {
         "status": "success",
         "last_successful_scrape_at": datetime.now(
@@ -3035,6 +3056,12 @@ def save_scrape_status(
             sellers_count
         ),
     }
+
+    if database_enabled():
+        PostgresStore().save_status(payload)
+        return
+
+    DATA_DIR.mkdir(exist_ok=True)
 
     tmp_path = SCRAPE_STATUS_JSON.with_suffix(
         ".json.tmp"
@@ -3064,6 +3091,14 @@ def save_failed_scrape_status(reason: str) -> None:
     Write a failure scrape_status.json with partial counts derived from
     existing data files so the uploader can capture the failure.
     """
+    if database_enabled():
+        PostgresStore().save_status({
+            "status": "failed",
+            "last_attempt_scrape_at": datetime.now(timezone.utc).isoformat(),
+            "reason": str(reason),
+        })
+        return
+
     DATA_DIR.mkdir(exist_ok=True)
 
     def _count_csv(path: Path) -> int:
@@ -3259,6 +3294,16 @@ def main():
         )
 
         raise SystemExit(1)
+
+    if database_enabled():
+        business_count = PostgresStore().business_count(FRESHNESS_DAYS, OWNER_RECHECK_DAYS)
+        save_scrape_status(
+            scraped_listings=len(all_listings),
+            business_listings=business_count,
+            sellers_count=len(cache),
+        )
+        log.info("Scraper run completed successfully.")
+        return
 
     # -------------------------------------------------------
     # 7. Validate business output

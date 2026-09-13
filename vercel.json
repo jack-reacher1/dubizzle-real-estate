@@ -5,5 +5,10 @@
   ],
   "routes": [
     { "src": "/(.*)", "dest": "/vercel_api_index.py" }
+  ],
+  "crons": [
+    { "path": "/api/cron/scrape", "schedule": "0 23 * * *" },
+    { "path": "/api/cron/scrape", "schedule": "0 9 * * *" },
+    { "path": "/api/cron/scrape", "schedule": "0 15 * * *" }
   ]
 }
