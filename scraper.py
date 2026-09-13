@@ -3059,6 +3059,10 @@ def save_scrape_status(
 
     if database_enabled():
         PostgresStore().save_status(payload)
+        DATA_DIR.mkdir(exist_ok=True)
+        tmp_path = SCRAPE_STATUS_JSON.with_suffix(".json.tmp")
+        tmp_path.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
+        tmp_path.replace(SCRAPE_STATUS_JSON)
         return
 
     DATA_DIR.mkdir(exist_ok=True)
@@ -3092,11 +3096,16 @@ def save_failed_scrape_status(reason: str) -> None:
     existing data files so the uploader can capture the failure.
     """
     if database_enabled():
-        PostgresStore().save_status({
+        payload = {
             "status": "failed",
             "last_attempt_scrape_at": datetime.now(timezone.utc).isoformat(),
             "reason": str(reason),
-        })
+        }
+        PostgresStore().save_status(payload)
+        DATA_DIR.mkdir(exist_ok=True)
+        tmp_path = SCRAPE_STATUS_JSON.with_suffix(".json.tmp")
+        tmp_path.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
+        tmp_path.replace(SCRAPE_STATUS_JSON)
         return
 
     DATA_DIR.mkdir(exist_ok=True)

@@ -181,6 +181,18 @@ class PostgresStore:
         _run(self._save_status(payload, run_id))
 
     async def _save_status(self, payload: dict[str, Any], run_id: str | None = None) -> None:
+        payload = dict(payload)
+        status_path = os.getenv("SCRAPE_STATUS_JSON_NAME", "scrape_status.json")
+        data_dir = os.getenv("DATA_DIR", "data")
+        file_path = os.path.join(data_dir, status_path)
+        try:
+            os.makedirs(data_dir, exist_ok=True)
+            with open(file_path, "w", encoding="utf-8") as handle:
+                json.dump(payload, handle, ensure_ascii=False, indent=2)
+                handle.write("\n")
+        except Exception:
+            pass
+
         async with self.connection() as conn:
             async with conn.transaction():
                 await conn.execute(
