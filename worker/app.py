@@ -81,7 +81,13 @@ async def trigger_run(authorization: str | None = Header(default=None)):
     if not _running_lock.acquire(blocking=False):
         raise HTTPException(status_code=409, detail="A scraper run is already in progress")
 
-    conn = await _database_connection()
+    try:
+        conn = await _database_connection()
+    except Exception:
+        _running_lock.release()
+        log.exception("Could not connect to the database")
+        raise HTTPException(status_code=503, detail="Could not connect to the database")
+
     try:
         locked = await conn.fetchval("SELECT pg_try_advisory_lock(hashtext('dubizzle-scrape'))")
         if not locked:

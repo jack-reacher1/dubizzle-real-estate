@@ -15,6 +15,21 @@ def test_worker_rejects_invalid_trigger_secret(monkeypatch):
     assert TestClient(app).get("/run", headers={"Authorization": "Bearer wrong"}).status_code == 401
 
 
+def test_worker_releases_lock_when_database_connection_fails(monkeypatch):
+    monkeypatch.setenv("WORKER_TRIGGER_SECRET", "secret")
+    monkeypatch.setenv("DATABASE_URL", "postgresql://unavailable")
+
+    async def connect(*args, **kwargs):
+        raise OSError("database hostname unavailable")
+
+    monkeypatch.setattr("worker.app._database_connection", connect)
+    client = TestClient(app)
+    headers = {"Authorization": "Bearer secret"}
+
+    assert client.get("/run", headers=headers).status_code == 503
+    assert client.get("/run", headers=headers).status_code == 503
+
+
 def test_worker_accepts_run_without_waiting_for_scraper(monkeypatch):
     monkeypatch.setenv("WORKER_TRIGGER_SECRET", "secret")
     monkeypatch.setenv("DATABASE_URL", "postgresql://unused")
