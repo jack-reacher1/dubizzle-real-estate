@@ -141,6 +141,11 @@ PHONE_PATTERN = re.compile(
     r"01[0125][\s\-]?\d{4}[\s\-]?\d{4}"
 )
 
+VACATION_PROPERTY_PATTERN = re.compile(
+    r"(?:عقارات\s*مصايف|مصايف\s*عقارات|مصايف|\b(?:vacation|holiday|chalet|chalets)\b)",
+    re.IGNORECASE,
+)
+
 
 # ---------------------------------------------------------------------------
 # Historical listings schema
@@ -1223,6 +1228,25 @@ def _detect_compound_from_text(
 # Listing normalization
 # ---------------------------------------------------------------------------
 
+def is_vacation_property(hit: dict) -> bool:
+    """Return whether a source hit belongs to vacation properties."""
+
+    values = []
+
+    for key, value in hit.items():
+        key_text = str(key).lower()
+        if (
+            "category" in key_text
+            or "type" in key_text
+            or key_text in {"title", "description", "slug"}
+        ):
+            if isinstance(value, (dict, list)):
+                values.append(json.dumps(value, ensure_ascii=False))
+            elif value is not None:
+                values.append(str(value))
+
+    return bool(VACATION_PROPERTY_PATTERN.search(" ".join(values)))
+
 def normalize_hit(
     hit: dict,
     listing_type: str,
@@ -1247,6 +1271,13 @@ def normalize_hit(
             hit.get("state")
             and hit.get("state") != "active"
         ):
+            return None
+
+        if is_vacation_property(hit):
+            log.info(
+                "Skipping vacation property hit id=%s",
+                ad_id,
+            )
             return None
 
         scraped_at = datetime.now(
