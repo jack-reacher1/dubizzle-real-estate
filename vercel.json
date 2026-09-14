@@ -7,8 +7,8 @@
     { "src": "/(.*)", "dest": "/vercel_api_index.py" }
   ],
   "crons": [
-    { "path": "/api/cron/scrape", "schedule": "0 23 * * *" },
-    { "path": "/api/cron/scrape", "schedule": "0 9 * * *" },
-    { "path": "/api/cron/scrape", "schedule": "0 15 * * *" }
+    { "path": "/api/cron/scrape", "schedule": "0 0 1-7 * *" },
+    { "path": "/api/cron/scrape", "schedule": "0 8 1-7 * *" },
+    { "path": "/api/cron/scrape", "schedule": "0 16 1-7 * *" }
   ]
 }
