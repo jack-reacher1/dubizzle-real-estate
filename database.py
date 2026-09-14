@@ -24,6 +24,7 @@ LISTING_COLUMNS = [
     "updated_at", "scraped_at", "days_since_updated", "is_verified_business",
     "is_agency", "agency_name", "has_broker_code_pattern", "seller_repeat_count",
     "seller_id", "seller_name", "first_seen_date", "last_seen_date", "is_active", "lead_status",
+    "source", "source_id", "source_url", "collection_run_id",
 ]
 
 

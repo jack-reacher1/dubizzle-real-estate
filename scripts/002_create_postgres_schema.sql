@@ -35,9 +35,20 @@ CREATE TABLE IF NOT EXISTS listings (
     last_seen_date TEXT NOT NULL,
     is_active BOOLEAN NOT NULL DEFAULT true,
     lead_status TEXT NOT NULL DEFAULT 'new' CHECK (lead_status IN ('new', 'contacted')),
+    source TEXT NOT NULL DEFAULT 'dubizzle',
+    source_id TEXT,
+    source_url TEXT,
+    collection_run_id UUID,
     created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
     updated_at_db TIMESTAMPTZ NOT NULL DEFAULT now()
 );
+
+ALTER TABLE listings ADD COLUMN IF NOT EXISTS source TEXT NOT NULL DEFAULT 'dubizzle';
+ALTER TABLE listings ADD COLUMN IF NOT EXISTS source_id TEXT;
+ALTER TABLE listings ADD COLUMN IF NOT EXISTS source_url TEXT;
+ALTER TABLE listings ADD COLUMN IF NOT EXISTS collection_run_id UUID;
+UPDATE listings SET source = 'dubizzle', source_id = ad_id, source_url = ad_url WHERE source IS NULL OR source = '';
+CREATE UNIQUE INDEX IF NOT EXISTS listings_source_source_id_idx ON listings (source, source_id);
 
 ALTER TABLE listings ADD COLUMN IF NOT EXISTS lead_status TEXT;
 UPDATE listings SET lead_status = 'new' WHERE lead_status IS NULL;
@@ -86,6 +97,7 @@ ON CONFLICT (key) DO NOTHING;
 
 CREATE TABLE IF NOT EXISTS scrape_runs (
     run_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    source TEXT NOT NULL DEFAULT 'dubizzle',
     status TEXT NOT NULL,
     started_at TIMESTAMPTZ NOT NULL DEFAULT now(),
     completed_at TIMESTAMPTZ,
@@ -94,6 +106,8 @@ CREATE TABLE IF NOT EXISTS scrape_runs (
     sellers_count INTEGER NOT NULL DEFAULT 0,
     error_message TEXT
 );
+
+ALTER TABLE scrape_runs ADD COLUMN IF NOT EXISTS source TEXT NOT NULL DEFAULT 'dubizzle';
 
 CREATE INDEX IF NOT EXISTS scrape_runs_started_idx ON scrape_runs (started_at DESC);
 

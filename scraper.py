@@ -56,6 +56,7 @@ import requests
 from dotenv import load_dotenv
 
 from database import PostgresStore, database_enabled
+from sources.dubizzle.urls import build_dubizzle_ad_url, normalize_authoritative_url
 
 load_dotenv()
 
@@ -106,7 +107,7 @@ SELLERS_CSV = DATA_DIR / os.getenv("SELLERS_CSV_NAME", "sellers_cache.csv")
 BUSINESS_CSV = DATA_DIR / os.getenv("BUSINESS_CSV_NAME", "business_listings.csv")
 SCRAPE_STATUS_JSON = DATA_DIR / os.getenv("SCRAPE_STATUS_JSON_NAME", "scrape_status.json")
 
-OWNER_RECHECK_DAYS = _get_int_env("OWNER_RECHECK_DAYS", 30, minimum=1)
+OWNER_RECHECK_DAYS = _get_int_env("DUBIZZLE_OWNER_RECHECK_DAYS", 365, minimum=1)
 BROKER_ACTIVE_ADS_THRESHOLD = _get_int_env("BROKER_ACTIVE_ADS_THRESHOLD", 4, minimum=1)
 
 MIN_DELAY = _get_int_env("DUBIZZLE_MIN_DELAY_SECONDS", 3, minimum=0)
@@ -272,6 +273,10 @@ class Listing:
     last_seen_date: Optional[str] = None
     is_active: bool = True
     lead_status: str = "new"
+    source: str = "dubizzle"
+    source_id: Optional[str] = None
+    source_url: Optional[str] = None
+    collection_run_id: Optional[str] = None
 
 
 # ---------------------------------------------------------------------------
@@ -440,134 +445,13 @@ def get_formatted_field(
 # Dubizzle URL resolution
 # ---------------------------------------------------------------------------
 
-def _normalize_authoritative_url(
-    raw_url: Optional[str],
-) -> Optional[str]:
-
-    if not raw_url:
-        return None
-
-    value = raw_url.strip()
-
-    if not value:
-        return None
-
-    if value.startswith("//"):
-        value = "https:" + value
-
-    if value.startswith("/"):
-        if value.startswith("/en/ad/") or value.startswith("/ad/"):
-            return f"{BASE_URL}{value}"
-
-        return None
-
-    try:
-        parsed = urlparse(value)
-
-    except Exception:
-        return None
-
-    host = (parsed.netloc or "").lower()
-
-    if not host:
-        return None
-
-    allowed_hosts = {
-        "dubizzle.com.eg",
-        "www.dubizzle.com.eg",
-        "olx.com.eg",
-        "www.olx.com.eg",
-    }
-
-    if host not in allowed_hosts:
-        return None
-
-    path = parsed.path.lower()
-
-    if "/en/ad/" not in path and "/ad/" not in path:
-        return None
-
-    return value
+def _normalize_authoritative_url(raw_url: Optional[str]) -> Optional[str]:
+    return normalize_authoritative_url(raw_url)
 
 
 def build_ad_url(hit: dict) -> Optional[str]:
-    """
-    Return an authoritative detail URL only if the source payload contains
-    one.
-
-    IMPORTANT:
-    We never construct a fake URL from slug + structured ad_id.
-    """
-
-    candidates = []
-
-    possible_keys = [
-        "ad_url",
-        "url",
-        "canonical_url",
-        "canonicalUrl",
-        "listing_url",
-        "listingUrl",
-        "seo_url",
-        "seoUrl",
-        "absolute_url",
-        "absoluteUrl",
-        "canonical",
-        "permalink",
-        "page_url",
-        "pageUrl",
-        "href",
-        "link",
-    ]
-
-    for key in possible_keys:
-        value = hit.get(key)
-
-        if isinstance(value, str):
-            candidates.append(value)
-
-    def walk(obj):
-        if isinstance(obj, dict):
-
-            for key, value in obj.items():
-
-                key_lower = str(key).lower()
-
-                if (
-                    isinstance(value, str)
-                    and any(
-                        token in key_lower
-                        for token in (
-                            "url",
-                            "link",
-                            "href",
-                            "canonical",
-                            "seo",
-                            "permalink",
-                            "path",
-                        )
-                    )
-                ):
-                    candidates.append(value)
-
-                if isinstance(value, (dict, list)):
-                    walk(value)
-
-        elif isinstance(obj, list):
-
-            for item in obj:
-                walk(item)
-
-    walk(hit)
-
-    for candidate in candidates:
-
-        normalized = _normalize_authoritative_url(candidate)
-
-        if normalized:
-            return normalized
-
-    return None
+    """Proxy to the Dubizzle-bound source adapter so the shared scraper remains stable."""
+    return build_dubizzle_ad_url(hit)
 
 
 # ---------------------------------------------------------------------------

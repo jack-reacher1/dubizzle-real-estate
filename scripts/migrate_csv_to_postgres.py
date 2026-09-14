@@ -107,7 +107,7 @@ async def main():
                 "phone_in_description", "posted_at", "updated_at", "scraped_at", "days_since_updated",
                 "is_verified_business", "is_agency", "agency_name", "has_broker_code_pattern",
                 "seller_repeat_count", "seller_id", "seller_name", "first_seen_date", "last_seen_date", "is_active",
-                "lead_status",
+                "lead_status", "source", "source_id", "source_url", "collection_run_id",
             ]
             placeholders = ", ".join(f"${i}" for i in range(1, len(fields) + 1))
             updates = ", ".join(
@@ -126,6 +126,10 @@ async def main():
                 values[30] = values[30] or today
                 values[31] = values[31] or values[30]
                 values[33] = listing.get("lead_status") or "new"
+                values[34] = listing.get("source") or "dubizzle"
+                values[35] = listing.get("source_id") or listing.get("ad_id")
+                values[36] = listing.get("source_url") or listing.get("ad_url")
+                values[37] = listing.get("collection_run_id") or None
                 if values[0]:
                     listing_records.append(tuple(values))
 
