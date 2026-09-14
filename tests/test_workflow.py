@@ -1,8 +1,13 @@
 import importlib
 import pytest
+from pathlib import Path
 
 scraper = importlib.import_module('scraper')
 from scraper import Listing
+
+
+def test_tracking_runner_script_exists():
+    assert Path('scripts/run_scrape_with_tracking.py').exists()
 
 
 def test_main_fails_when_business_generation_fails(monkeypatch):

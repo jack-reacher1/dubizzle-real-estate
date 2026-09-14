@@ -1,7 +1,5 @@
 {
-  "status": "success",
-  "last_successful_scrape_at": "2026-09-13T22:13:04.941676+00:00",
-  "scraped_listings": 0,
-  "business_listings": 0,
-  "sellers_count": 0
+  "status": "failed",
+  "last_attempt_scrape_at": "2026-09-14T05:05:55.411988+00:00",
+  "reason": "column \"source\" of relation \"listings\" does not exist"
 }
