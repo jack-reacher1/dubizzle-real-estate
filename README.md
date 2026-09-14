@@ -1,5 +1,4 @@
 ﻿# dubizzle-real-estate
-
 # Dubizzle Egypt - 5th Settlement Scraper
 
 سكريبر يومي بيسحب إعلانات الشقق (بيع وإيجار) في التجمع الخامس من Dubizzle مصر،
