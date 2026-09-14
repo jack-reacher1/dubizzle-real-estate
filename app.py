@@ -9,7 +9,6 @@ import csv
 import tempfile
 from datetime import datetime
 from dotenv import load_dotenv
-from cron import router as cron_router
 from database import database_enabled
 
 load_dotenv()
@@ -26,7 +25,6 @@ APP_MAX_PER_PAGE = int(os.getenv("APP_MAX_PER_PAGE", "200"))
 ASYNCPG_STATEMENT_CACHE_SIZE = int(os.getenv("ASYNCPG_STATEMENT_CACHE_SIZE", "0"))
 
 app = FastAPI()
-app.include_router(cron_router)
 
 app.mount("/static", StaticFiles(directory="static"), name="static")
 service = ListingsService()
