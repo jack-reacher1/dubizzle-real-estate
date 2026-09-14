@@ -58,6 +58,11 @@ from dotenv import load_dotenv
 from database import PostgresStore, database_enabled
 from sources.dubizzle.urls import build_dubizzle_ad_url, normalize_authoritative_url
 
+try:
+    from curl_cffi import requests as curl_requests
+except Exception:
+    curl_requests = None
+
 load_dotenv()
 
 
@@ -283,6 +288,30 @@ class Listing:
 # HTTP helper
 # ---------------------------------------------------------------------------
 
+def _browser_get(url: str, headers: dict | None = None):
+    """Prefer curl_cffi browser impersonation when the dependency is present,
+    and fall back to plain requests for local/test execution.
+    """
+    if curl_requests is not None:
+        try:
+            session = curl_requests.Session()
+            session.headers.update(headers or HEADERS)
+            return session.get(
+                url,
+                timeout=REQUEST_TIMEOUT,
+                impersonate="chrome124",
+                allow_redirects=True,
+            )
+        except Exception as exc:
+            log.warning("curl_cffi failed for %s: %s", url, exc)
+
+    return requests.get(
+        url,
+        headers=headers or HEADERS,
+        timeout=REQUEST_TIMEOUT,
+    )
+
+
 def polite_get(url: str) -> Optional[requests.Response]:
     """
     GET with randomized delay and retries.
@@ -296,11 +325,7 @@ def polite_get(url: str) -> Optional[requests.Response]:
         time.sleep(random.uniform(MIN_DELAY, MAX_DELAY))
 
         try:
-            resp = requests.get(
-                url,
-                headers=HEADERS,
-                timeout=REQUEST_TIMEOUT,
-            )
+            resp = _browser_get(url, headers=HEADERS)
 
             # Handle rate limiting with exponential backoff + jitter.
             if resp.status_code == 429:
