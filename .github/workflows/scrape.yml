@@ -1,0 +1,49 @@
+name: Scheduled scrape
+
+on:
+  workflow_dispatch:
+  schedule:
+    # GitHub Actions cron is UTC: 00:00, 08:00, and 16:00 on days 1-7.
+    - cron: "0 0,8,16 1-7 * *"
+
+concurrency:
+  group: scheduled-scrape
+  cancel-in-progress: false
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    permissions:
+      contents: read
+    env:
+      DATABASE_URL: ${{ secrets.DATABASE_URL }}
+      STORAGE_BACKEND: postgres
+      ASYNCPG_STATEMENT_CACHE_SIZE: "0"
+      DUBIZZLE_MAX_PAGES: "25"
+      DUBIZZLE_FRESHNESS_DAYS: "14"
+      DUBIZZLE_INACTIVE_RETENTION_DAYS: "30"
+      DUBIZZLE_MIN_DELAY_SECONDS: "3"
+      DUBIZZLE_MAX_DELAY_SECONDS: "8"
+      DUBIZZLE_REQUEST_TIMEOUT_SECONDS: "90"
+      DUBIZZLE_MAX_RETRIES: "2"
+      DUBIZZLE_BACKOFF_MAX_RETRIES: "5"
+      DUBIZZLE_BACKOFF_BASE_SECONDS: "5"
+      DUBIZZLE_BACKOFF_MAX_SECONDS: "300"
+      OWNER_RECHECK_DAYS: "30"
+      BROKER_ACTIVE_ADS_THRESHOLD: "4"
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: python -m pip install --upgrade pip && pip install -r requirements.txt
+
+      - name: Run scraper
+        run: python scripts/run_scrape_with_tracking.py
