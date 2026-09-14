@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   schedule:
     # GitHub Actions cron is UTC: 00:00, 08:00, and 16:00 on days 1-7.
-    - cron: "0 0,8,16 1-7 * *"
+    - cron: "0 0,8,16 8-14 * *"
 
 concurrency:
   group: scheduled-scrape
